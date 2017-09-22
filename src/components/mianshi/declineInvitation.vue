@@ -1,19 +1,24 @@
 <template>
-  <div class="mainWrap">
-      <div class="mainContent clearfix">
-          <h3>您确定要拒绝面试邀请吗？</h3>
+    <div class="mainWrap">
+      <div class="mainContent">
+            <h3>您确定要拒绝面试邀请吗？</h3>
             <img class="imgBG" src="../../assert/img/1.png">
             <div class="refuseReason">
                 <mt-checklist
                     v-model="value"
+                    @change="checkChange()"
                     :options="options">
                 </mt-checklist>
             </div>
-                <div class="okBtn" @click="refuse()">确认拒绝</div>
-                <div class="cancelBtn">取消</div>
+            <div class="btn">
+                <div class="button okBtn pc" @click="refuse()">确认拒绝</div>
+                <div class="button cancelBtn pc">取消</div>
+                <footer id="footer">
+                    <div>杭州爱聚科技有限公司</div>
+                </footer>
             </div>
-       <footer id="footer">杭州爱聚科技有限公司</footer>
-  </div>
+        </div>
+    </div>
 </template>
 <script>
 export default {
@@ -26,6 +31,9 @@ export default {
   methods: {
       refuse(){
           console.log('确认拒绝')
+      },
+      checkChange() {
+          console.log(this.value)
       }
   }
 }
@@ -35,62 +43,47 @@ export default {
     width: 100%;
     text-align: center;   
 }
+.mainWrap h3{
+    padding-top: 0.5rem;
+    color: black;
+}
 .mainContent{
     padding-bottom: 20px;
 }
-#footer {position: relative;margin-top: -20px; margin-bottom: 10px; height: 20px;clear:both;color:rgba(102,102,102,1);line-height:18px;}
-.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
-.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
-.clearfix {display: inline-block;}
 .refuseReason{
     background-color: #fff;
-    width: 285px;
-    padding: 30px 0 0 15px;
+    width: 92%;
+    padding: 0.3rem 0 0 0.15rem;
     color:rgba(51,51,51,1);
     text-align: left;
     margin: -25px auto 0;
 }
-.mainWrap h3{
-    padding-top: 80px;
-}
-.mainWrap img{
-    margin-top: 38px;
-    width: 180px;
+.imgBG{
+    width: 44%;
+    margin: 0.2rem auto 0;
     z-index: 2;
+    display: block;
 }
-</style>
-
-<style> 
-  .mint-checkbox-core{
+.btn{
+    margin-top: 1rem;
+}
+.mint-checkbox-core{
     border-radius: 2px;
 }
-.okBtn, .cancelBtn{
-    width:302px;
-    height:48px; 
-    background:rgba(90,162,231,1);
-    border-radius: 24px;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin: 20px auto 0;
-    line-height: 48px;
-}
-.cancelBtn{
+.button.cancelBtn{
     background: #fff;
     border: 1px solid rgba(90,162,231,1);
     color: black;
     margin-bottom: 50px;
 }
 footer{
-    /* height:13px; 
-    font-size:14px;
-    color:rgba(102,102,102,1);
-    line-height:18px;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    margin-left: -70px; */
+    left: 0;
 }
 </style>
+<style>
+
+</style>
+
+
 
 

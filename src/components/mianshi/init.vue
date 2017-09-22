@@ -1,7 +1,7 @@
 <template>
     <div class="mainWrap">
-            <div class="wrapContent">
-                <div class="title">
+        <div class="wrapContent clearfix">
+            <div class="title">
                 <h3>HI: &nbsp;{{person.name}}</h3>
                 <h3>我们诚挚邀请您参加本公司面试</h3>
             </div>
@@ -17,12 +17,15 @@
                 </ul>
             </div>
             <div class="btn">
-                <button @click="acceptInvitation(1)">我接受</button>
-                <button @click="acceptInvitation(2)" style="margin-top: 20px; background:rgba(249,104,104,1);">我拒绝</button>            
+                <div class="button pc" @click="acceptInvitation(1)">我接受</div>
+                <div class="button pc" @click="acceptInvitation(2)" style="margin-top: 20px; background:rgba(249,104,104,1);">我拒绝</div>            
             </div>
         </div>
+        <footer id="footer">
+            <div>杭州爱聚科技有限公司</div>
+        </footer>
+    </div>
         
-        <footer id="footer">杭州爱聚科技有限公司</footer>
     </div>
 </template>
 <script>
@@ -45,80 +48,73 @@ export default {
     acceptInvitation(e){
       console.log(e);
     }
-  },
+  }
 }
 </script>
 <style scoped>
+@media only screen and (min-width: 750px){
+    .btn{
+        margin-left: 10%;
+        margin-bottom: 40px;
+    }
+    .btn .button{
+        width: 40%!important;
+        float: left;
+        margin-top: 0!important;
+        margin:  0 2.5%!important;
+    }
+    footer{
+        position: relative!important;
+        top: 40px;
+        margin-bottom: 10px;
+    }
+}
 .mainWrap{
-    width: 100%;
     min-height: 100%;
-    padding-top: 1px;
-    font-family:PingFang-SC-Medium;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.wrapContent{
+    width: 100%;
+    margin-bottom: 20px;
 }
 .title{
-    margin-top: 90px;
+    margin-top: 0.5rem;
 }
 .imgBG{
-    position: absolute;
-    top: 158px;
-    left: 50%;
-    margin-left: -90px;
-    width: 180px;
+    width: 44%;
+    margin: 0.2rem auto 0;
     z-index: 2;
+    display: block;
 }
 .interviewContent{
-    position: absolute;
-    top: 220px;
+    width: 90%;
     background-color: #fff;
-    width: 330px;
-    left: 50%;
-    margin-left: -172.5px;
-    height: 170px;
-    padding: 30px 0 0 15px;
-    color:rgba(51,51,51,1);
-    
-}
-.interviewContent li{
-    height: 25px;
+    font-size: 14px;
+    height: 3.4rem;
+    margin: -0.5rem auto;
+    padding: 0.6rem 0 0 0.3rem;
+    line-height: 0.5rem;
 }
 .btn{
-    position: absolute;
-    left: 50%;
-    margin-left: -150px;
-    top: 452.5px;
+    margin-top: 1rem;
 }
-.btn button{
-    width:302px;
-    height:48px; 
+.btn .button{
+    width:80%;
+    height:1rem; 
     background:rgba(90,162,231,1);
-    border-radius: 24px ; 
+    border-radius: 0.5rem; 
     border: none;
     display: block;
     cursor: pointer;
      color: #fff;
      font-size: 17px;
-}
-footer{
-    height:13px; 
-    font-size:14px;
-    color:rgba(102,102,102,1);
-    line-height:18px;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    margin-left: -70px;
-}
-.mainContent{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: auto;
-}
-#footer {position: relative;margin-top: -20px; margin-bottom: 10px; height: 20px;clear:both;color:rgba(102,102,102,1);line-height:18px;}
-.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
-.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
-.clearfix {display: inline-block;}
+     margin: 0 auto;
+     text-align: center;
+     line-height: 1rem;
+} 
+
+
 </style>
 

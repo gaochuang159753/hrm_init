@@ -13,6 +13,8 @@ export default {
 #app{
   max-width: 750px;
   margin: 0 auto;
+}
+#app>div{
   height: 100%;
 }
 </style>

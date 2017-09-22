@@ -4,5 +4,53 @@ h3 {
     color:rgba(90,162,231,1);
     line-height:15px;
     text-align: center;
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    margin: 0.5rem;
   }
+  .button{
+    width:80%;
+    height:1rem; 
+    line-height: 1rem;
+    background:rgba(90,162,231,1);
+    border-radius: 0.5rem; 
+    border: none;
+    display: block;
+    cursor: pointer;
+    color: #fff;
+    font-size: 17px;
+    margin: 0.5rem auto;
+    text-align: center;
+} 
+footer{
+  height:18px; 
+  font-size:14px;
+  color:rgba(102,102,102,1);
+  line-height:18px;
+  position: fixed;
+  bottom: 20px;
+  display: inline-block;
+  width: 100%;
+  text-align: center; 
+  left: 0; 
+}
+.mint-checkbox-core{
+  border-radius: 3px;
+}
+@media only screen and (min-width: 750px){
+  .btn{
+      margin-left: 10%;
+      margin-bottom: 40px;
+  }
+  .button.pc{
+      width: 40%!important;
+      float: left;
+      margin-top: 0!important;
+      margin:  0 2.5%!important;
+  }
+  footer{
+      position: relative!important;
+      top: 40px;
+      margin-bottom: 10px;
+  }
+}
+ 
