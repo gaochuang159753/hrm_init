@@ -47,6 +47,16 @@ export default {
  methods: {
     acceptInvitation(e){
       console.log(e);
+      var self=this;
+      var method="eliminateReason/addEliminateReason",
+            param=JSON.stringify({
+                eliminateReason:1,
+                remark:1
+            }),
+            successd=function(res){
+                console.log(res);
+            };
+        self.$http(method,param,successd);
     }
   }
 }
