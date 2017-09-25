@@ -4,7 +4,7 @@
         <h3>我们已经等候您多时了，终于要见面啦</h3>
         <p>亲爱的你，在面试过程中放好心态、轻松应对，我们面试官都很可爱，不要感到紧张哦！祝你应聘成功，前途无限光明！</p>
         <div class="signBtn" @click="signin">面试签到</div> 
-        <footer id="footer">杭州爱聚科技有限公司</footer>
+        <footer class="footer">杭州爱聚科技有限公司</footer>
            
     </div>
     
