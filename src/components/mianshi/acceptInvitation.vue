@@ -5,7 +5,6 @@
                 <h3>HI: &nbsp;{{interviewInfo.name}}</h3>
                 <h3>{{interviewInfo.markedWordsInfo}}</h3>
             </div>
-            <img class="imgBG" src="../../assert/img/1.png">
             <div class="interviewContent">
                 <ul>
                     <li><span>面试类型:</span>  {{interviewTypeArr[interviewInfo.interviewType]}}</li>
@@ -15,10 +14,6 @@
                     <li><span>联系人:</span> {{interviewInfo.contractName}}</li>
                     <li><span>联系电话:</span> {{interviewInfo.contractPhone}}</li>
                 </ul>
-            </div>
-            <div class="btn">
-                <div class="button pc" @click="acceptInvitation(1)">我接受</div>
-                <div class="button pc" @click="acceptInvitation(3)" style="margin-top: 20px; background:rgba(249,104,104,1);">我拒绝</div>            
             </div>
             </div>
             <footer id="footer">
@@ -36,7 +31,7 @@ export default {
     name: 'init',
     data() {
         return{
-            wrapHide: false,
+            wrapHide: true,
             interviewTypeArr: {
                 1: '现场面试',
                 2: '电话面试'
@@ -51,7 +46,7 @@ export default {
                 contractName: "啊啊",
                 positionName: "产品",
                 interviewAddress: "广告公司",
-                markedWords: "接受面试邀请",
+                markedWords: "接受面试邀请"
             }
         }
     },
@@ -66,22 +61,19 @@ export default {
                 isAccept: isAccept
             }),
             successd=function(res){
-                console.log(res.data.data);
-                if(isAccept == '-1'){
+                if(res.data.markedWords == '接受面试邀请'){
                     self.wrapHide = true;
-                    self.interviewInfo = res.data.data.interviewInfo;
-                }else if(res.data.data.interviewInfo.markedWords == '链接已失效'){
+                    self.interviewInfo = res.data.data;
+                }else if(res.data.markedWords == '链接已失效'){
                      self.$router.push({name:'loseefficacy'});
+                }else if(res.data.markedWordsInfo){
+                    self.$router.push({name:'refusesuccess'});
+                }else if(res.data.markedWordsInfo){
+                    self.$router.push({name:'declineInvitation'});
                 }
                 console.log(res);
             };
-            if(isAccept == '1'){
-                self.$router.push({name:'acceptInvitation'});
-            }else if(isAccept == '3'){
-                self.$router.push({name:'declineinvitation'});
-            }else{
-                self.$http(method,param,successd);
-            }
+        self.$http(method,param,successd);
     }
   },
   mounted(){
@@ -118,7 +110,7 @@ export default {
     margin-bottom: 20px;
 }
 .title{
-    margin-top: 0.5rem;
+    margin: 0.5rem 0 1.2rem;
 }
 .imgBG{
     width: 44%;

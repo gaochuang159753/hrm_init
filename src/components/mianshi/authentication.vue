@@ -7,12 +7,15 @@
             <div class="inputWrap">
                 <input type="text" v-model="value" placeholder="请输入手机号码">
             </div>
-            <div class="button" @click="confirm">确定</div> </div>
+            <div class="button" @click="confirm()">确定</div> </div>
     </div>
     
   
 </template>
 <script>
+
+import { Toast } from 'mint-ui';
+
 export default {
   name: 'authentication',
   data() {
@@ -21,12 +24,17 @@ export default {
           value: ''
       }
   },
-  mtthod: {
+  methods: {
       confirm() {
           console.log('confirm')
+           var reg = /^1[3578][0-9]{9}$/;
+           if (!reg.test(this.value)) {
+               Toast('请输入正确的手机号');
+            } else {
+                this.$router.push({name:'signin', query: {phoneNum: this.value}});
+            }
       }
-  }
-
+  },
 }
 </script>
 
@@ -38,7 +46,6 @@ export default {
 
 }
 #mainWrap{
-    /* text-align: center; */
     width: 100%;
 }
 h2{
@@ -60,7 +67,8 @@ h2{
     display: block;
 }
 input{
-    margin: 0.3rem 10%;
+    line-height: 1rem;
+    margin: 0 10%;
     border: none;
     outline: none;
     background: none;

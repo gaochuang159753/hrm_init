@@ -1,25 +1,59 @@
 <template>
-    <div>
-        <h3>HI: <span>佩奇</span></h3>
+    <div class="mainWrap">
+        <h3>HI: <span>{{authenticationInfo.interviewerName}}</span></h3>
         <h3>我们已经等候您多时了，终于要见面啦</h3>
         <p>亲爱的你，在面试过程中放好心态、轻松应对，我们面试官都很可爱，不要感到紧张哦！祝你应聘成功，前途无限光明！</p>
         <div class="signBtn" @click="signin">面试签到</div> 
-        <footer class="footer">杭州爱聚科技有限公司</footer>
-           
+        <footer class="footer">{{authenticationInfo.companyName}}</footer>
     </div>
-    
 </template>
+
 <script>
+import { Toast } from 'mint-ui';
+
 export default {
   name: 'signin',
+  data() {
+     return{
+        authenticationInfo: {
+            companyName: "景麒水果公司",
+            interviewerId: 13,
+            interviewerName: "张洁"
+        }  
+     }
+  },
   methods: {
       signin() {
+          var self = this;
           console.log('signIn')
-      }
+          var method="interviewer/authentication",
+            param = JSON.stringify({
+                interviewerPhone: this.$route.query.phoneNum,
+            }),
+            succeed = function(res){
+                console.log(res);
+                var errorReminder = res.data.data.authenticationInfo.errorReminder;
+                if(errorReminder == "您输入的手机号有误"){
+                    Toast(errorReminder) 
+                }else{
+                    self.authenticationInfo = res.data.data.authenticationInfo;
+                    self.$router.push({name: 'editfinish', query: {id: this.authenticationInfo.interviewerId}})
+                }
+                console.log(errorReminder)
+            }
+            self.$http(method,param,succeed);
+      },
+  },
+  mounted(){
+    this.signin();
+    console.log(this.$route.query)
   }
 }
 </script>
 <style scoped>
+.mainWrap{
+    margin-top: 1.4rem;
+}
 p{
     width: 85%;
     font-size:14px;

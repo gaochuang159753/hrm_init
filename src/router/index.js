@@ -12,6 +12,7 @@ import edit from '@/components/mianshi/edit'
 import editfinish from '@/components/mianshi/editfinish'
 import fail from '@/components/mianshi/fail'
 import succeed from '@/components/mianshi/succeed'
+import acceptInvitation from '@/components/mianshi/acceptInvitation'
 
 
 
@@ -80,6 +81,11 @@ export default new Router({
       path: '/fail',
       name: 'fail',
       component: fail
+    },
+    {
+      path: '/acceptInvitation',
+      name: 'acceptInvitation',
+      component: acceptInvitation
     },
   ]
 })

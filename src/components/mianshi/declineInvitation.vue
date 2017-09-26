@@ -1,18 +1,18 @@
 <template>
-    <div class="mainWrap">
+    <div class="mainWrap" v-show="mainShow">
       <div class="mainContent">
             <h3>您确定要拒绝面试邀请吗？</h3>
             <img class="imgBG" src="../../assert/img/1.png">
             <div class="refuseReason">
                 <mt-checklist
-                    v-model="value"
+                    v-model="reasons"
                     @change="checkChange()"
-                    :options="options">
+                    :options="reasonList">
                 </mt-checklist>
             </div>
             <div class="btn">
                 <div class="button okBtn pc" @click="refuse()">确认拒绝</div>
-                <div class="button cancelBtn pc">取消</div>
+                <div class="button cancelBtn pc" @click="cancel()">取消</div>
                 <footer id="footer">
                     <div>杭州爱聚科技有限公司</div>
                 </footer>
@@ -21,20 +21,47 @@
     </div>
 </template>
 <script>
+
+var isAccept = '3';
+var interviewerI = localStorage.getItem('interviewerId') || '12';
+
 export default {
+  name: 'declineInvitation',
   data() {
       return{
-          value: ['已找到新工作'],
-          options: ['已找到新工作', '面试时间有冲突，需要再约', '对面试公司的地点或公司条件不满意', '个人原因', '其他'],
+          mainShow: false,
+          reasons: [],
+          reasonList: [],
         }
   },
   methods: {
+      initList(){
+          var self = this;
+          var method = "interviewer/getNoAcceptReasonList",
+            param = JSON.stringify({}),
+            successd = function(res){
+                console.log(res);
+                var reasonList = res.data.data.reasonList;
+                var arr = [];
+                for(var key in reasonList){
+                    arr.push(reasonList[key])                    
+                }
+                self.reasonList = arr;
+                self.mainShow = true;
+            };
+                self.$http(method,param,successd);
+      },
       refuse(){
+          var reasonsStr = this.reasons.join(',');
+          this.$router.push({name:"refusesuccess",params:{reasons: reasonsStr}});
           console.log('确认拒绝')
       },
-      checkChange() {
-          console.log(this.value)
+      cancel() {
+          this.$router.push({name:"/"});
       }
+  },
+  mounted(){
+      this.initList();
   }
 }
 </script>

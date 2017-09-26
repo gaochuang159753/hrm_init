@@ -6,13 +6,13 @@
                     <h3>拒绝面试邀请</h3>
                     <h4>您已经拒绝了本次面试邀请，期待下次与您合作！</h4>
                     <div class="interviewContent">
-                        <ul>
-                            <li><span>面试类型:</span>  {{person.type}}</li>
-                            <li><span>面试职位:</span> {{person.position}}</li>
-                            <li><span>面试时间:</span> {{person.time}}</li>
-                            <li><span>面试地点:</span> {{person.location}}</li>
-                            <li><span>联系人:</span> {{person.linkman}}</li>
-                            <li><span>联系电话:</span> {{person.phonenum}}</li>
+                         <ul>
+                            <li><span>面试类型:</span>  {{interviewTypeArr[interviewInfo.interviewType]}}</li>
+                            <li><span>面试职位:</span> {{interviewInfo.positionName}}</li>
+                            <li><span>面试时间:</span> {{interviewInfo.interviewTime}}</li>
+                            <li><span>面试地点:</span> {{interviewInfo.interviewAddress}}</li>
+                            <li><span>联系人:</span> {{interviewInfo.contractName}}</li>
+                            <li><span>联系电话:</span> {{interviewInfo.contractPhone}}</li>
                         </ul>
                     </div>
                 </div>
@@ -24,29 +24,61 @@
     </div>
 </template>
 <script>
+
+var isAccept = '3';
+var interviewerId = localStorage.getItem('interviewerId') || '12';
+
 export default {
     name: 'refusesuccess',
     data() {
         return{
-            person: {
-                name: '佩奇',
-                type: '现场面试',
-                position: '产品经理',
-                time: '2017-08-19  14:00',
-                location: '杭州市西湖区西西湖苑忽2号',
-                linkman: '维尼',
-                phonenum: '18768180165'
+             interviewTypeArr: {
+                1: '现场面试',
+                2: '电话面试'
+            },
+            interviewInfo: {
+                contractPhone: 12345678901,
+                interviewTime: "2017-09-21 20:17:38",
+                markedWordsInfo: "您已经接受了本次面试邀请，请您准时来面试哦！",
+                interviewType: 1,
+                companyName: "景麒水果公司",
+                name: "张洁",
+                contractName: "啊啊",
+                positionName: "产品",
+                interviewAddress: "广告公司",
+                markedWords: "接受面试邀请",
             }
         }
     },
  methods: {
+     init(){
+        var self = this;
+            var method = "interviewer/getInterviewInfo",
+            param = JSON.stringify({
+                interviewerId: interviewerId,
+                isAccept: isAccept,
+                reasons: this.$route.params.reasons
+            }),
+            successd = function(res){
+                console.log(res.data.data.interviewInfo);
+                self.interviewInfo = res.data.data.interviewInfo;
+            }
+            self.$http(method,param,successd);
+     },
     acceptInvitation(e){
       console.log(e);
     }
+  },
+  mounted () {
+      console.log();
+      this.init()
   }
 }
 </script>
 <style scoped>
+#content h3{
+    margin: 0.4rem;
+}
 h4{
     font-size: 14px;
     text-align: center;
