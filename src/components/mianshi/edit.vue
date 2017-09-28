@@ -92,7 +92,7 @@
           </li>
           <li>
               <span>手机号 </span>
-              <input type="text" v-model="registrationFormInfo.phone">
+              <input type="text" v-model="registrationFormInfo.interviewerPhone">
           </li>
           <li>
               <span>邮 &nbsp;&nbsp;箱 </span>
@@ -250,7 +250,7 @@ export default {
                 marryStatus: '1',
                 speciality: "服装设计",
                 nowLiveAddress: "公元里",
-                phone: 12345678901,
+                interviewerPhone: 12345678901,
                 name: "张洁",
                 hukouAddress: "大理",
                 hukouType: '0',
