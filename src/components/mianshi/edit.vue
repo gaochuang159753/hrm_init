@@ -69,7 +69,7 @@
           </li>
           <li>
               <span>毕业时间 </span>
-               <input type="text" readonly="true" v-model="registrationFormInfo.graduatetime" @click="openPicker('graduatetime')">
+               <input type="text" readonly="true" v-model="registrationFormInfo.graduateTime" @click="openPicker('graduateTime')">
           </li>
           <li>
               <span>户口所在地 </span>
@@ -244,7 +244,7 @@ export default {
                 educationLev: '1',
                 graduateSchool: "湘西民族职业技术学院",
                 politicalStatus: '5',
-                graduatetime: "2017.09",
+                graduateTime: "2017.09",
                 sex: '2',
                 idCardNo: "121212121212121212",
                 marryStatus: '1',
@@ -319,8 +319,8 @@ export default {
           console.log(e)
           if(this.timePicker.type == 'birthday'){
             this.registrationFormInfo.birthday = this.$date(e)              
-          }else if(this.timePicker.type == 'graduatetime'){
-            this.registrationFormInfo.graduatetime = this.$date(e)              
+          }else if(this.timePicker.type == 'graduateTime'){
+            this.registrationFormInfo.graduateTime = this.$date(e)              
           } 
         //   if(this.timePicker.type.openPicker == 'sex'){
             // this.registrationFormInfo.sex = this.$date(e)  
