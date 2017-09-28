@@ -4,15 +4,36 @@
         <p>我们任性了，您别介意</p>
         <div  class="contactUs"> 
             <p> 如果您遇到了解决不了的问题，请联系我们</p>  
-            <p>电话: <a href="javascript:;">0571-9898989</a></p>
-            <p style="margin-top: 0.5rem;">邮箱: <a href="javascript:;">aiju@iyenei.com</a> </p>
+            <p style="margin-top: 0.5rem;">邮箱: <a href="javascript:;">{{companyInfo.email}}</a> </p>
         </div>
     </div>
 </template>
 <script>
 export default {
   name: 'fail',
-
+  data() {
+      return{
+          companyInfo: {
+            //    companyName: "景麒水果公司",
+            //    email: "2323@12.com"
+          }
+      }
+  },
+  methods: {
+       init(){
+            var self=this;
+            var method="interviewer/errorPage",
+                param=JSON.stringify({}),
+                successd=function(res){
+                    console.log(res);
+                    self.companyInfo = res.data.data.companyInfo;
+                };
+                self.$http(method,param,successd);
+        }
+  },
+  mounted(){
+      this.init()
+  }
 }
 </script>
 <style scoped>

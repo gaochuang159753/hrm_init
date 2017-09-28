@@ -21,7 +21,7 @@ export default {
   data() {
       return{
           name: '杭州爱聚科技有限公司',
-          value: ''
+          value: '18258896649'
       }
   },
   methods: {

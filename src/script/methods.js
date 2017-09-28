@@ -44,6 +44,13 @@ export default {
     Vue.prototype.$http = function (method, param, succeed) {
       var self = this;
       // self.fullscreenLoading = true;
+      param = JSON.parse(param);
+      for(var key in param){
+        if(param[key] === ""){
+          delete param[key]
+        }
+      }
+      param = JSON.stringify(param);
       Axios.post(Util.url,
         'method=' + method
         + '&param=' + encodeURIComponent(param)
@@ -53,16 +60,8 @@ export default {
         if (res.data.code == 0) {
           succeed(res);
         } else {
-          // 没有登录
-          if(res.data.code == 400){
-            location.href = "https://hr.ecbao.cn/login/";
-          }else if(res.data.code == 5555){
-            self.$router.push('/nopower');
-          }
-          self.$message({
-            message: '操作失败，原因：' + res.data.message,
-            type: 'warning'
-          });
+          self.$router.push('/fail');
+          Toast('请输入正确的手机号');
         }
       }).catch(function (err) {
       });
@@ -74,7 +73,7 @@ export default {
         var d = new Date(date);
         var newdate = "";
         if (type == "month") {
-          newdate = d.getFullYear()+"-" + (d.getMonth() > 8 ? d.getMonth() + 1 : "0" + (d.getMonth() + 1));
+          newdate = d.getFullYear()+"." + (d.getMonth() > 8 ? d.getMonth() + 1 : "0" + (d.getMonth() + 1));
         } else if(type=="time"){
           newdate = d.getFullYear() + '-'
           + (d.getMonth() > 8 ? d.getMonth() + 1 : "0" + (d.getMonth() + 1)) + '-'
@@ -83,8 +82,8 @@ export default {
           +(d.getMinutes()>9?d.getMinutes():"0"+d.getMinutes())+":"
           +(d.getSeconds()>9?d.getMinutes():"0"+d.getMinutes());
         }else {
-          newdate = d.getFullYear() + '-'
-          + (d.getMonth() > 8 ? d.getMonth() + 1 : "0" + (d.getMonth() + 1)) + '-'
+          newdate = d.getFullYear() + '.'
+          + (d.getMonth() > 8 ? d.getMonth() + 1 : "0" + (d.getMonth() + 1)) + '.'
           + (d.getDate() > 9 ? d.getDate() : "0" + (d.getDate()));
         }
         return newdate

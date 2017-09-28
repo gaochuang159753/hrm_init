@@ -16,14 +16,14 @@ export default {
   data() {
      return{
         authenticationInfo: {
-            companyName: "景麒水果公司",
-            interviewerId: 13,
-            interviewerName: "张洁"
+            // companyName: "景麒水果公司",
+            // interviewerId: 13,
+            // interviewerName: "张洁"
         }  
      }
   },
   methods: {
-      signin() {
+      init() {
           var self = this;
           console.log('signIn')
           var method="interviewer/authentication",
@@ -32,20 +32,23 @@ export default {
             }),
             succeed = function(res){
                 console.log(res);
-                var errorReminder = res.data.data.authenticationInfo.errorReminder;
-                if(errorReminder == "您输入的手机号有误"){
-                    Toast(errorReminder) 
-                }else{
-                    self.authenticationInfo = res.data.data.authenticationInfo;
-                    self.$router.push({name: 'editfinish', query: {id: this.authenticationInfo.interviewerId}})
-                }
+                self.authenticationInfo = res.data.data.authenticationInfo;
+                // var errorReminder = res.data.data.authenticationInfo.errorReminder;
+                // if(errorReminder == "您输入的手机号有误"){
+                //     Toast(errorReminder) 
+                // }else{
+                //     self.authenticationInfo = res.data.data.authenticationInfo;
+                // }
                 console.log(errorReminder)
             }
             self.$http(method,param,succeed);
       },
+      signin() {
+        this.$router.push({name: 'editfinish', query: {interviewerId: this.authenticationInfo.interviewerId}})
+      }
   },
   mounted(){
-    this.signin();
+    this.init();
     console.log(this.$route.query)
   }
 }

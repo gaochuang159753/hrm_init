@@ -10,67 +10,67 @@
                     <span>姓 &nbsp;&nbsp;名:</span>
                     {{registrationFormInfo.name}}
                 </li>
-                <li>
+                <li v-if="registrationFormInfo.sex">
                     <span>性 &nbsp;&nbsp;别:</span>
                     {{sex[registrationFormInfo.sex]}}
                 </li>
-                <li>
+                <li v-if="registrationFormInfo.national">
                     <span>民 &nbsp;&nbsp;族:</span>
                     {{registrationFormInfo.national}}
                 </li>
-                <li>
+                <li v-if="registrationFormInfo.birthday">
                     <span>出生年月:</span>
                     {{registrationFormInfo.birthday}}
                 </li>
-                <li>
+                <li v-if="registrationFormInfo.politicalStatus">
                     <span>政治面貌:</span>
                     {{politicalStatus[registrationFormInfo.politicalStatus]}}
                 </li>
-                <li>
+                <li v-if="registrationFormInfo.marryStatus">
                     <span>婚姻状况: </span>
                     {{marryStatus[registrationFormInfo.marryStatus]}}
                 </li>
-                <li>
+                <li v-if="registrationFormInfo.educationLev">
                     <span>最高学历: </span>
                     {{education[registrationFormInfo.educationLev]}}
                 </li>
-                <li>
+                <li v-if="registrationFormInfo.graduateSchool">
                     <span>毕业院校: </span>
                     {{registrationFormInfo.graduateSchool}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.speciality">
                     <span>所学专业: </span>
                     {{registrationFormInfo.speciality}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.graduatetime">
                     <span>毕业时间: </span>
                     {{registrationFormInfo.graduatetime}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.hukouAddress">
                     <span>户口所在地: </span>
                     {{registrationFormInfo.hukouAddress}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.hukouType">
                     <span>户口性质: </span>
                     {{hukouType[registrationFormInfo.hukouType]}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.idCardNo">
                     <span>身份证号: </span>
                     {{registrationFormInfo.idCardNo}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.phone">
                     <span>手机号: </span>
                     {{registrationFormInfo.phone}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.email">
                     <span>邮 &nbsp;&nbsp;箱: </span>
                     {{registrationFormInfo.email}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.nowLiveAddress">
                     <span>现住址: </span>
                     {{registrationFormInfo.nowLiveAddress}}
                 </li>
-                <li>
+                <li v-show="registrationFormInfo.haveAcquaintance">
                     <span>在本公司有无认识的人： </span>
                     {{registrationFormInfo.haveAcquaintance}}
                 </li>
@@ -93,53 +93,62 @@ export default {
   name: 'editfinish',
   data() {
       return{
-          education: ['', '博士', '研究生', 'MBA', '本科', '大专', '大学', '高中', '中专', '技校', '中技', '初中', '小学'],
-          politicalStatus: ['', '中共党员', '中共预备党员', '共青团员', '民革党员', '民盟盟员', '民建会员', '民进会员'],
+          education: ['', '博士', '研究生', 'MBA', '本科', '大专', '大学', '高中', '中专', '技校', '中技', '初中', '小学',,'大专以下','硕士'],
+          politicalStatus: ['', '中共党员', '中共预备党员', '共青团员', '民革党员', '民盟盟员', '民建会员', '民进会员', '党员', '团员', '群众'],
           sex: ['', '男', '女', '未知'],
           hukouType: ['农村', '非农'],
-          marryStatus: ['','未婚','2：已婚','离异','保密'],
+          marryStatus: ['','未婚','已婚','离异','保密'],
           interviewerId: '',
-            registrationFormInfo: {
-                birthday: "1989.12.22",
-                educationLev: 1,
-                graduateSchool: "湘西民族职业技术学院",
-                politicalStatus: 5,
-                graduatetime: "2017.09",
-                sex: 2,
-                idCardNo: "121212121212121212",
-                hukouType: 1,
-                marryStatus: 1,
-                speciality: "服装设计",
-                nowLiveAddress: "公元里",
-                phone: 12345678901,
-                name: "张洁",
-                hukouAddress: "大理",
-                hukouType: 0,
-                national: "汉族",
-                email: "412863280@qq.com",
-                haveAcquaintance: "有(维尼+表姐妹)",
-            }
+          registrationFormInfo: {
+                // birthday: "1989.12.22",
+                // educationLev: 1,
+                // graduateSchool: "湘西民族职业技术学院",
+                // politicalStatus: 5,
+                // graduatetime: "2017.09",
+                // sex: 2,
+                // idCardNo: "121212121212121212",
+                // hukouType: 1,
+                // marryStatus: 1,
+                // speciality: "服装设计",
+                // nowLiveAddress: "公元里",
+                // phone: 12345678901,
+                // name: "张洁",
+                // hukouAddress: "大理",
+                // hukouType: 0,
+                // national: "汉族",
+                // email: "412863280@qq.com",
+                // haveAcquaintance: "有(维尼+表姐妹)",
+           }
       }
   },
   methods: {
+      init() {
+        var self = this;
+        this.interviewerId = this.$route.query.interviewerId;
+         var method = 'interviewer/signSuccessList',
+         param=JSON.stringify({
+             interviewerId: this.interviewerId
+         }),
+         successd = function(res){
+             self.registrationFormInfo = res.data.data.registrationFormInfo;
+         }
+         self.$http(method, param, successd);
+      },
       edit() {
-          console.log('click')
-          
           this.$router.push({name: 'edit', query: {interviewerId: this.interviewerId}})
       },
       submit() {
          var self = this;
-         console.log('submit') 
          var method = 'interviewer/submitRegistrationForm',
          param=JSON.stringify({}),
          successd = function(res){
-             console.log(res)
+             self.$router.push({path: 'succeed'})
          }
          self.$http(method, param, successd);
       }
   },
   mounted(){
-
+      this.init();
   }
 }
 </script>
