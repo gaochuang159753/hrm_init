@@ -351,11 +351,10 @@ export default {
           }else{
               return this.switchValue.person
           }
-         
       }
   },
   mounted() {
-      console.log( this.$route)
+      console.log(this.$route.query)
       this.transitonHaveAcquaintanceH(this.registrationFormInfo.haveAcquaintance);
       this.init();
   }

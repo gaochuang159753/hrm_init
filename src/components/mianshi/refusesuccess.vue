@@ -26,12 +26,12 @@
 <script>
 
 var isAccept = '3';
-var interviewerId = localStorage.getItem('interviewerId') || '12';
 
 export default {
     name: 'refusesuccess',
     data() {
         return{
+            interviewerId: '',
              interviewTypeArr: {
                 1: '现场面试',
                 2: '电话面试'
@@ -55,7 +55,7 @@ export default {
         var self = this;
             var method = "interviewer/getInterviewInfo",
             param = JSON.stringify({
-                interviewerId: interviewerId,
+                interviewerId: this.interviewerId,
                 isAccept: isAccept,
                 reasons: this.$route.params.reasons
             }),
@@ -65,12 +65,11 @@ export default {
             }
             self.$http(method,param,successd);
      },
-    acceptInvitation(e){
-      console.log(e);
-    }
+  },
+   beforeMount(){
+      this.interviewerId = this.$route.query.interviewerId;
   },
   mounted () {
-      console.log();
       this.init()
   }
 }

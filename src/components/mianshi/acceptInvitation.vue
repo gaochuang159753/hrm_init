@@ -31,6 +31,7 @@ export default {
     name: 'init',
     data() {
         return{
+            interviewerId: '',
             wrapHide: true,
             interviewTypeArr: {
                 1: '现场面试',
@@ -56,7 +57,7 @@ export default {
       var self=this;
       var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
-                interviewerId: 12,
+                interviewerId: interviewerId,
                 isAccept: isAccept
             }),
             successd=function(res){
@@ -73,6 +74,9 @@ export default {
             };
         self.$http(method,param,successd);
     }
+  },
+  beforeMount(){
+      this.interviewerId = this.$route.query.interviewerId;
   },
   mounted(){
       this.acceptInvitation('-1');

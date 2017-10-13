@@ -36,6 +36,7 @@ export default {
     name: 'init',
     data() {
         return{
+            interviewerId: '',
             wrapHide: false,
             interviewTypeArr: {
                 1: '现场面试',
@@ -57,12 +58,11 @@ export default {
     },
  methods: {
     acceptInvitation(e){
-      console.log(e);
       isAccept = e;
       var self=this;
       var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
-                interviewerId: 12,
+                interviewerId: this.interviewerId,
                 isAccept: isAccept
             }),
             successd=function(res){
@@ -73,16 +73,18 @@ export default {
                 }else if(res.data.data.interviewInfo.markedWords == '链接已失效'){
                      self.$router.push({name:'loseefficacy'});
                 }
-                console.log(res);
             };
             if(isAccept == '1'){
-                self.$router.push({name:'acceptInvitation'});
+                this.$router.push({name: 'acceptInvitation', query: {interviewerId: self.interviewerId}})
             }else if(isAccept == '3'){
-                self.$router.push({name:'declineinvitation'});
+                this.$router.push({name: 'declineinvitation', query: {interviewerId: self.interviewerId}})
             }else{
                 self.$http(method,param,successd);
             }
     }
+  },
+  beforeMount(){
+      this.interviewerId = location.href.split('=')[1] || '12'
   },
   mounted(){
       this.acceptInvitation('-1');

@@ -44,6 +44,7 @@ export default {
             self.$http(method,param,succeed);
       },
       signin() {
+          console.log(this.authenticationInfo)
         this.$router.push({name: 'editfinish', query: {interviewerId: this.authenticationInfo.interviewerId}})
       }
   },

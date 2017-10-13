@@ -33,6 +33,7 @@ export default {
   name: 'declineInvitation',
   data() {
       return{
+          interviewerId: '',
           mainShow: false,
           reasons: '',
           reasonList: [],
@@ -55,11 +56,14 @@ export default {
                 self.$http(method,param,successd);
       },
       refuse(){
-          this.$router.push({name:"refusesuccess",params:{reasons: this.reasons}});
+          this.$router.push({name:"refusesuccess",query:{reasons: this.reasons, interviewerId: this.interviewerId}});
       },
       cancel() {
           this.$router.push({name:"/"});
       }
+  },
+   beforeMount(){
+      this.interviewerId = this.$route.query.interviewerId;
   },
   mounted(){
       this.initList();
