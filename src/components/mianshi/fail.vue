@@ -25,7 +25,6 @@ export default {
             var method="interviewer/errorPage",
                 param=JSON.stringify({}),
                 successd=function(res){
-                    console.log(res);
                     self.companyInfo = res.data.data.companyInfo;
                 };
                 self.$http(method,param,successd);

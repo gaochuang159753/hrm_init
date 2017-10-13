@@ -26,7 +26,6 @@ export default {
   },
   methods: {
       confirm() {
-          console.log('confirm')
            var reg = /^1[3578][0-9]{9}$/;
            if (!reg.test(this.value)) {
                Toast('请输入正确的手机号');

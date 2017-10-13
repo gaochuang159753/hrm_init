@@ -4,11 +4,15 @@
             <h3>您确定要拒绝面试邀请吗？</h3>
             <img class="imgBG" src="../../assert/img/1.png">
             <div class="refuseReason">
-                <mt-checklist
+                <!-- <mt-checklist
                     v-model="reasons"
                     @change="checkChange()"
                     :options="reasonList">
-                </mt-checklist>
+                </mt-checklist> -->
+                <mt-radio
+                    v-model="reasons"
+                    :options="reasonList">
+                </mt-radio>
             </div>
             <div class="btn">
                 <div class="button okBtn pc" @click="refuse()">确认拒绝</div>
@@ -30,7 +34,7 @@ export default {
   data() {
       return{
           mainShow: false,
-          reasons: [],
+          reasons: '',
           reasonList: [],
         }
   },
@@ -40,7 +44,6 @@ export default {
           var method = "interviewer/getNoAcceptReasonList",
             param = JSON.stringify({}),
             successd = function(res){
-                console.log(res);
                 var reasonList = res.data.data.reasonList;
                 var arr = [];
                 for(var key in reasonList){
@@ -52,9 +55,7 @@ export default {
                 self.$http(method,param,successd);
       },
       refuse(){
-          var reasonsStr = this.reasons.join(',');
-          this.$router.push({name:"refusesuccess",params:{reasons: reasonsStr}});
-          console.log('确认拒绝')
+          this.$router.push({name:"refusesuccess",params:{reasons: this.reasons}});
       },
       cancel() {
           this.$router.push({name:"/"});

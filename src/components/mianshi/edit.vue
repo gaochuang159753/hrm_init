@@ -284,7 +284,6 @@ export default {
               }
              self.registrationFormInfo = res.data.data.registrationFormInfo;
              self.transitonHaveAcquaintanceH(self.registrationFormInfo.haveAcquaintance);
-              console.log(self.registrationFormInfo);
           }
           this.$http(method, param, successd);
       },
@@ -293,16 +292,11 @@ export default {
                 this.registrationFormInfo.haveAcquaintance = Number(this.switchValue.open);
                 this.registrationFormInfo.friendRemaik = this.haveAcquaintance;
                 this.registrationFormInfo.interviewerId = this.$route.query.interviewerId;
-                console.log(this.registrationFormInfo)
             var method = "interviewer/updateBaiscInfo",
                 param = JSON.stringify(self.registrationFormInfo),
                 successd = function(res){
-                    console.log(res);
                     self.$route.push({ path: 'editfinish', interviewerId: self.$route.query.interviewerId})
                 };
-          
-                console.log(this.registrationFormInfo)
-                console.log(this.haveAcquaintance)
                 self.$http(method,param,successd);
       },
       onValuesChange(picker, values) {
@@ -316,7 +310,6 @@ export default {
           this.picker.pickerShow = false
       },
       handleConfirm(e) {
-          console.log(e)
           if(this.timePicker.type == 'birthday'){
             this.registrationFormInfo.birthday = this.$date(e)              
           }else if(this.timePicker.type == 'graduateTime'){

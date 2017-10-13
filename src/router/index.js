@@ -7,16 +7,11 @@ import refusesuccess from '@/components/mianshi/refusesuccess'
 import loseefficacy from '@/components/mianshi/loseefficacy'
 import authentication from '@/components/mianshi/authentication'
 import signin from '@/components/mianshi/signin'
-import fillininformation from '@/components/mianshi/fillininformation'
 import edit from '@/components/mianshi/edit'
 import editfinish from '@/components/mianshi/editfinish'
 import fail from '@/components/mianshi/fail'
 import succeed from '@/components/mianshi/succeed'
 import acceptInvitation from '@/components/mianshi/acceptInvitation'
-
-
-
-
 
 Vue.use(Router)
 
@@ -56,11 +51,6 @@ export default new Router({
       path: '/signin',
       name: 'signin',
       component: signin
-    },
-    {
-      path: '/fillininformation',
-      name: 'fillininformation',
-      component: fillininformation
     },
     {
       path: '/edit',

@@ -52,7 +52,6 @@ export default {
     },
  methods: {
     acceptInvitation(e){
-      console.log(e);
       isAccept = e;
       var self=this;
       var method="interviewer/getInterviewInfo",
@@ -71,7 +70,6 @@ export default {
                 }else if(res.data.markedWordsInfo){
                     self.$router.push({name:'declineInvitation'});
                 }
-                console.log(res);
             };
         self.$http(method,param,successd);
     }
