@@ -16,22 +16,23 @@ export default {
           companyInfo: {
             //    companyName: "景麒水果公司",
             //    email: "2323@12.com"
-          }
+          },
+            companyId:localStorage.companyId,
       }
   },
   methods: {
-       init(){
-            var self=this;
-            var method="interviewer/errorPage",
-                param=JSON.stringify({}),
-                successd=function(res){
-                    self.companyInfo = res.data.data.companyInfo;
-                };
-                self.$http(method,param,successd);
-        }
+    init(){
+        var self=this;
+        var method="interviewer/errorPage",
+            param=JSON.stringify({companyId:self.companyId}),
+            successd=function(res){
+                self.companyInfo = res.data.data.companyInfo;
+            };
+        self.$http(method,param,successd);
+    }
   },
   mounted(){
-      this.init()
+      this.init();
   }
 }
 </script>

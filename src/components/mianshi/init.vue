@@ -29,14 +29,12 @@
 </template>
 <script>
 
-var interviewerId = localStorage.getItem('interviewerId') || '12',
-isAccept = '-1'; //面试邀请详情
-
 export default {
     name: 'init',
     data() {
         return{
             interviewerId: '',
+            companyId:null,
             wrapHide: false,
             interviewTypeArr: {
                 1: '现场面试',
@@ -57,34 +55,37 @@ export default {
         }
     },
  methods: {
-    acceptInvitation(e){
-      isAccept = e;
-      var self=this;
-      var method="interviewer/getInterviewInfo",
+    acceptInvitation(isAccept){
+        var self=this;
+        var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
                 interviewerId: this.interviewerId,
-                isAccept: isAccept
+                isAccept: isAccept,
+                companyId:self.companyId
             }),
             successd=function(res){
                 console.log(res.data.data);
-                if(isAccept == '-1'){
-                    self.wrapHide = true;
-                    self.interviewInfo = res.data.data.interviewInfo;
-                }else if(res.data.data.interviewInfo.markedWords == '链接已失效'){
-                     self.$router.push({name:'loseefficacy'});
+                self.wrapHide = true;
+                self.interviewInfo = res.data.data.interviewInfo;
+                if(res.data.data.interviewInfo.markedWords == '链接已失效'){
+                    self.$router.push({name:'loseefficacy'});
                 }
             };
-            if(isAccept == '1'){
-                this.$router.push({name: 'acceptInvitation', query: {interviewerId: self.interviewerId}})
-            }else if(isAccept == '3'){
-                this.$router.push({name: 'declineinvitation', query: {interviewerId: self.interviewerId}})
-            }else{
-                self.$http(method,param,successd);
-            }
+        if(isAccept == '1'){
+            this.$router.push({name: 'acceptInvitation'})
+        }else if(isAccept == '3'){
+            this.$router.push({name: 'declineinvitation'})
+        }else{
+            self.$http(method,param,successd);
+        }
     }
   },
   beforeMount(){
-      this.interviewerId = location.href.split('=')[1] || '12'
+    //   this.interviewerId = location.href.split('=')[1] || '12';
+      this.interviewerId=this.$route.query.interviewerId;
+      localStorage.interviewerId=this.interviewerId;
+      this.companyId=this.$route.query.companyId;
+      localStorage.companyId=this.companyId;
   },
   mounted(){
       this.acceptInvitation('-1');

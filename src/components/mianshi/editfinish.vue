@@ -1,6 +1,6 @@
 <template>
     <div class="mainWrap">
-        <h3>HI: &nbsp; 佩奇</h3>
+        <h3>HI: &nbsp; {{registrationFormInfo.name}}</h3>
         <h3>我们已经等候您多时了，终于要见面啦</h3>
         <p>请耐心填写完应聘登记表哦！</p>
         <img src="../../assert/img/edit.png" @click="edit()" class="edit" alt="编辑">
@@ -140,7 +140,7 @@ export default {
       submit() {
          var self = this;
          var method = 'interviewer/submitRegistrationForm',
-         param=JSON.stringify({}),
+         param=JSON.stringify({interviewerId: this.interviewerId}),
          successd = function(res){
              self.$router.push({path: 'succeed'})
          }

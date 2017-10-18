@@ -2,8 +2,9 @@
     <div>
         <div id="mainWrap">
             <h2 style="">欢迎光临</h2>
-            <h2 class="name">杭州爱聚科技有限公司</h2> 
-            <img class="imgBG" src="../../assert/img/lose.png">
+            <h2 class="name">{{scanAfterPageInfo.companyName}}</h2> 
+            <img class="imgBG" :src="scanAfterPageInfo.logoUrl" v-if="scanAfterPageInfo.logoUrl">
+            <img class="imgBG" src="../../assert/img/1.png" v-else>
             <div class="inputWrap">
                 <input type="text" v-model="value" placeholder="请输入手机号码">
             </div>
@@ -21,19 +22,56 @@ export default {
   data() {
       return{
           name: '杭州爱聚科技有限公司',
-          value: '18258896649'
+          value: '',
+          companyId:null,
+          scanAfterPageInfo:{
+              companyName:'',
+              logoUrl:null
+          }
       }
   },
-  methods: {
-      confirm() {
-           var reg = /^1[3578][0-9]{9}$/;
-           if (!reg.test(this.value)) {
-               Toast('请输入正确的手机号');
+  mounted(){
+      localStorage.companyId=this.$route.query.companyId;
+      this.companyId=localStorage.companyId;
+      this.init();
+  },
+    methods: {
+        init(){
+            var self=this;
+            var method="interviewer/scanAfterPageInfo",
+                param=JSON.stringify({
+                    companyId:self.companyId
+                }),
+                successd=function(res){
+                    console.log(res);
+                    self.scanAfterPageInfo=res.data.data.scanAfterPageInfo;
+                };
+            self.$http(method,param,successd);
+        },
+        confirm() {
+            var self=this;
+            var reg = /^1[3578][0-9]{9}$/;
+            if (!reg.test(this.value)) {
+                Toast('请输入正确的手机号');
             } else {
-                this.$router.push({name:'signin', query: {phoneNum: this.value}});
+                // this.$router.push({name:'signin', query: {phoneNum: this.value}});
+                var method="interviewer/authentication",
+                    param=JSON.stringify({
+                        interviewerPhone:this.value,
+                        companyId:self.companyId
+                    }),
+                    successd=function(res){
+                        if(res.data.data.authenticationInfo.result=='true'){
+                            self.$router.push({name:'signin',query: {phoneNum:self.value}});
+                        }else{
+                            Toast(res.data.data.authenticationInfo.errorReminder);
+                        }
+                        
+                    };
+                self.$http(method,param,successd);
             }
-      }
-  },
+        }
+    },
 }
 </script>
 
@@ -42,7 +80,6 @@ export default {
     display: block;
     margin: 1rem auto 2.5rem;
     width: 30%;
-
 }
 #mainWrap{
     width: 100%;

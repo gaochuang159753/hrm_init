@@ -295,7 +295,7 @@ export default {
             var method = "interviewer/updateBaiscInfo",
                 param = JSON.stringify(self.registrationFormInfo),
                 successd = function(res){
-                    self.$route.push({ path: 'editfinish', interviewerId: self.$route.query.interviewerId})
+                    self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId}})
                 };
                 self.$http(method,param,successd);
       },
@@ -385,7 +385,7 @@ mainWrap{
 ul li{
     display: flex;
     justify-content: flex-start;
-    font-size: 16px;
+    font-size: 0.18rem;
     font-family:PingFang-SC-Medium;
     color:rgba(153,153,153,1);
     line-height: 18px;

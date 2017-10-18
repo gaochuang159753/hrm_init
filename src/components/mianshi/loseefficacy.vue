@@ -15,8 +15,6 @@
 </template>
 <script>
 
-var interviewerId = localStorage.getItem('interviewerId') || '12',
-isAccept = '-1'; //面试邀请详情
 
 export default {
   name: 'loseefficacy',

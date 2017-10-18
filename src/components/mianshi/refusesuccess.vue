@@ -32,42 +32,45 @@ export default {
     data() {
         return{
             interviewerId: '',
-             interviewTypeArr: {
+            companyId:null,
+            interviewTypeArr: {
                 1: '现场面试',
                 2: '电话面试'
             },
             interviewInfo: {
-                contractPhone: 12345678901,
-                interviewTime: "2017-09-21 20:17:38",
-                markedWordsInfo: "您已经接受了本次面试邀请，请您准时来面试哦！",
+                contractPhone: '',
+                interviewTime: "",
+                markedWordsInfo: "",
                 interviewType: 1,
-                companyName: "景麒水果公司",
-                name: "张洁",
-                contractName: "啊啊",
-                positionName: "产品",
-                interviewAddress: "广告公司",
-                markedWords: "接受面试邀请",
+                companyName: "",
+                name: "",
+                contractName: "",
+                positionName: "",
+                interviewAddress: "",
+                markedWords: "",
             }
         }
     },
  methods: {
      init(){
         var self = this;
-            var method = "interviewer/getInterviewInfo",
+        var method = "interviewer/getInterviewInfo",
             param = JSON.stringify({
                 interviewerId: this.interviewerId,
                 isAccept: isAccept,
-                reasons: this.$route.params.reasons
+                reasons: this.$route.params.reasons,
+                companyId:self.companyId
             }),
             successd = function(res){
                 console.log(res.data.data.interviewInfo);
                 self.interviewInfo = res.data.data.interviewInfo;
             }
-            self.$http(method,param,successd);
+        self.$http(method,param,successd);
      },
   },
    beforeMount(){
       this.interviewerId = this.$route.query.interviewerId;
+      this.companyId=localStorage.companyId;
   },
   mounted () {
       this.init()

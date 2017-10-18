@@ -2,6 +2,7 @@
 import Axios from 'axios';
 import Util from '../script/util.js';
 import md5 from 'js-md5';
+import { Toast } from 'mint-ui';
 export default {
   install(Vue, options) {
     Vue.prototype.getData = function () {
@@ -61,7 +62,7 @@ export default {
           succeed(res);
         } else {
           self.$router.push('/fail');
-          Toast('请输入正确的手机号');
+          Toast(res.data.message);
         }
       }).catch(function (err) {
       });

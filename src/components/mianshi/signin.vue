@@ -19,26 +19,21 @@ export default {
             // companyName: "景麒水果公司",
             // interviewerId: 13,
             // interviewerName: "张洁"
-        }  
+        },
+        companyId:null,
      }
   },
   methods: {
       init() {
           var self = this;
-          console.log('signIn')
           var method="interviewer/authentication",
             param = JSON.stringify({
                 interviewerPhone: this.$route.query.phoneNum,
+                companyId:self.companyId
             }),
             succeed = function(res){
                 console.log(res);
                 self.authenticationInfo = res.data.data.authenticationInfo;
-                // var errorReminder = res.data.data.authenticationInfo.errorReminder;
-                // if(errorReminder == "您输入的手机号有误"){
-                //     Toast(errorReminder) 
-                // }else{
-                //     self.authenticationInfo = res.data.data.authenticationInfo;
-                // }
                 console.log(errorReminder)
             }
             self.$http(method,param,succeed);
@@ -49,6 +44,7 @@ export default {
       }
   },
   mounted(){
+    this.companyId=localStorage.companyId;
     this.init();
     console.log(this.$route.query)
   }

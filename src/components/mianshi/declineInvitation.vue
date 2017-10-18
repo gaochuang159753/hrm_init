@@ -26,8 +26,6 @@
 </template>
 <script>
 
-var isAccept = '3';
-var interviewerI = localStorage.getItem('interviewerId') || '12';
 
 export default {
   name: 'declineInvitation',
@@ -35,6 +33,7 @@ export default {
       return{
           interviewerId: '',
           mainShow: false,
+          companyId:null,
           reasons: '',
           reasonList: [],
         }
@@ -63,7 +62,8 @@ export default {
       }
   },
    beforeMount(){
-      this.interviewerId = this.$route.query.interviewerId;
+      this.interviewerId = localStorage.interviewerId;
+      this.companyId = localStorage.companyId;
   },
   mounted(){
       this.initList();

@@ -24,8 +24,8 @@
 </template>
 <script>
 
-var interviewerId = localStorage.getItem('interviewerId') || '12',
-isAccept = '-1'; //面试邀请详情
+// var interviewerId = localStorage.getItem('interviewerId') || '12',
+// isAccept = '-1'; //面试邀请详情
 
 export default {
     name: 'init',
@@ -33,38 +33,40 @@ export default {
         return{
             interviewerId: '',
             wrapHide: true,
+            companyId:null,
             interviewTypeArr: {
                 1: '现场面试',
                 2: '电话面试'
             },
            interviewInfo: {
-                contractPhone: 12345678901,
-                interviewTime: "2017-09-21 20:17:38",
-                markedWordsInfo: "您已经接受了本次面试邀请，请您准时来面试哦！",
+                contractPhone: '',
+                interviewTime: "",
+                markedWordsInfo: "",
                 interviewType: 1,
-                companyName: "景麒水果公司",
-                name: "张洁",
-                contractName: "啊啊",
-                positionName: "产品",
-                interviewAddress: "广告公司",
+                companyName: "",
+                name: "",
+                contractName: "",
+                positionName: "",
+                interviewAddress: "",
                 markedWords: "接受面试邀请"
             }
         }
     },
  methods: {
     acceptInvitation(e){
-      isAccept = e;
+      var isAccept = e;
       var self=this;
       var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
-                interviewerId: interviewerId,
-                isAccept: isAccept
+                interviewerId: self.interviewerId,
+                isAccept: isAccept,
+                companyId:self.companyId
             }),
             successd=function(res){
-                if(res.data.markedWords == '接受面试邀请'){
+                if(res.data.data.interviewInfo.markedWords == '接受面试邀请'){
                     self.wrapHide = true;
-                    self.interviewInfo = res.data.data;
-                }else if(res.data.markedWords == '链接已失效'){
+                    self.interviewInfo = res.data.data.interviewInfo;
+                }else if(res.data.data.interviewInfo.markedWords == '链接已失效'){
                      self.$router.push({name:'loseefficacy'});
                 }else if(res.data.markedWordsInfo){
                     self.$router.push({name:'refusesuccess'});
@@ -76,10 +78,11 @@ export default {
     }
   },
   beforeMount(){
-      this.interviewerId = this.$route.query.interviewerId;
+      this.interviewerId = localStorage.interviewerId;
+      this.companyId = localStorage.companyId;
   },
   mounted(){
-      this.acceptInvitation('-1');
+      this.acceptInvitation('1');
   }
 }
 </script>
