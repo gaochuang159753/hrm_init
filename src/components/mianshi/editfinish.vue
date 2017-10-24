@@ -103,6 +103,7 @@ export default {
           hukouType: ['农村', '非农'],
           marryStatus: ['','未婚','已婚','离异','保密'],
           interviewerId: '',
+          companyId:localStorage.companyId,
           registrationFormInfo: {
                 // birthday: "1989.12.22",
                 // educationLev: 1,
@@ -146,19 +147,31 @@ export default {
           this.$router.push({name: 'edit', query: {interviewerId: this.interviewerId}})
       },
       submit() {
-        var self = this;
-        if(this.registrationFormInfo.haveAcquaintance && this.registrationFormInfo.haveAcquaintance != 1 && this.registrationFormInfo.haveAcquaintance != 2){
-            var reg = /[\(\)\+]/g;
-            let arr = this.registrationFormInfo.haveAcquaintance.split(reg);
-            this.registrationFormInfo.haveAcquaintance = arr[0] == '有'? '1': '0';
-            this.registrationFormInfo.friendRemaik = arr[2] ? arr[1] + '+' + arr[2] : arr[1];
+        // var self = this;
+        // if(this.registrationFormInfo.haveAcquaintance && this.registrationFormInfo.haveAcquaintance != 1 && this.registrationFormInfo.haveAcquaintance != 2){
+        //     var reg = /[\(\)\+]/g;
+        //     let arr = this.registrationFormInfo.haveAcquaintance.split(reg);
+        //     this.registrationFormInfo.haveAcquaintance = arr[0] == '有'? '1': '0';
+        //     this.registrationFormInfo.friendRemaik = arr[2] ? arr[1] + '+' + arr[2] : arr[1];
+        // }
+        // this.registrationFormInfo.interviewerId = this.interviewerId;
+        // this.registrationFormInfo.companyId = localStorage.companyId;
+        //  var method = 'interviewer/submitRegistrationForm',
+        //   param=JSON.stringify(
+        //      this.registrationFormInfo
+        //  ),
+         var self = this;
+         var params=JSON.parse(JSON.stringify(self.registrationFormInfo));
+         params.interviewerId=self.interviewerId;
+         params.companyId=self.companyId;
+         var reg = /[\(\)\+]/g;
+        if(params.haveAcquaintance!="没有"){
+            var arr = params.haveAcquaintance.split(reg);
+            params.friendRemaik =arr[1] + '+' + arr[2];
         }
-        this.registrationFormInfo.interviewerId = this.interviewerId;
-        this.registrationFormInfo.companyId = localStorage.companyId;
+        params.haveAcquaintance=params.haveAcquaintance=="没有"?0:1;
          var method = 'interviewer/submitRegistrationForm',
-          param=JSON.stringify(
-             this.registrationFormInfo
-         ),
+         param=JSON.stringify(params),
          successd = function(res){
              self.$router.push({path: 'succeed'})
          }

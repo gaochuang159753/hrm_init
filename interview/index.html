@@ -1,0 +1,16 @@
+<!DOCTYPE html><html><head><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta charset=utf-8><title>面试</title><link rel=stylesheet type=text/css href="./static/reset.css?t=12"><script type=javascript/text></script><link href=./static/css/app.b40fa73f0489eb063d061c06f706038d.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.0298b81998e491f56244.js></script><script type=text/javascript src=./static/js/vendor.9e60df88b31ccd8d52cc.js></script><script type=text/javascript src=./static/js/app.b3d467a13f53ea00b28a.js></script></body><script type=text/javascript>(function (doc, win) {
+		        var docEl = doc.documentElement,
+		            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		            recalc = function () {
+		                var clientWidth = docEl.clientWidth;
+		                if (!clientWidth) return;
+		                if(clientWidth>=750){
+		                    docEl.style.fontSize = '100px';
+		                }else{
+		                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+		                }
+		            };
+		        if (!doc.addEventListener) return;
+		        win.addEventListener(resizeEvt, recalc, false);
+		        doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);</script></html>
