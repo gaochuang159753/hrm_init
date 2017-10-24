@@ -3,8 +3,8 @@
         <div id="wrap">
             <div id="main" class="clearfix">
                 <div id="content">
-                    <h3>拒绝面试邀请</h3>
-                    <h4>您已经拒绝了本次面试邀请，期待下次与您合作！</h4>
+                    <h3>{{ interviewInfo.markedWords }}</h3>
+                    <h4>{{ interviewInfo.markedWordsInfo }}！</h4>
                     <div class="interviewContent">
                          <ul>
                             <li><span>面试类型:</span>  {{interviewTypeArr[interviewInfo.interviewType]}}</li>
@@ -58,18 +58,16 @@ export default {
             param = JSON.stringify({
                 interviewerId: this.interviewerId,
                 isAccept: isAccept,
-                reasons: this.$route.params.reasons,
                 companyId:self.companyId
             }),
             successd = function(res){
-                console.log(res.data.data.interviewInfo);
                 self.interviewInfo = res.data.data.interviewInfo;
             }
         self.$http(method,param,successd);
      },
   },
    beforeMount(){
-      this.interviewerId = this.$route.query.interviewerId;
+      this.interviewerId = localStorage.interviewerId;
       this.companyId=localStorage.companyId;
   },
   mounted () {

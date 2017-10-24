@@ -36,6 +36,7 @@ export default {
           companyId:null,
           reasons: '',
           reasonList: [],
+          isAccept: 3,
         }
   },
   methods: {
@@ -55,7 +56,18 @@ export default {
                 self.$http(method,param,successd);
       },
       refuse(){
-          this.$router.push({name:"refusesuccess",query:{reasons: this.reasons, interviewerId: this.interviewerId}});
+           var self = this;
+            var method = "interviewer/getInterviewInfo",
+            param = JSON.stringify({
+                interviewerId: this.interviewerId,
+                isAccept: this.isAccept,
+                reasons: this.reasons,
+                companyId:self.companyId
+            }),
+            successd = function(res){
+                self.$router.push({name:"refusesuccess"});
+            }
+        self.$http(method,param,successd);
       },
       cancel() {
           this.$router.push({name:"/"});
@@ -63,6 +75,7 @@ export default {
   },
    beforeMount(){
       this.interviewerId = localStorage.interviewerId;
+      debugger;
       this.companyId = localStorage.companyId;
   },
   mounted(){

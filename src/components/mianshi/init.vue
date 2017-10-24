@@ -43,7 +43,7 @@ export default {
            interviewInfo: {
                 contractPhone: 12345678901,
                 interviewTime: "2017-09-21 20:17:38",
-                markedWordsInfo: "您已经接受了本次面试邀请，请您准时来面试哦！",
+                markedWordsInfo: "我们诚挚邀请您参加本公司面试！",
                 interviewType: 1,
                 companyName: "景麒水果公司",
                 name: "张洁",
@@ -55,7 +55,8 @@ export default {
         }
     },
  methods: {
-    acceptInvitation(isAccept){
+    acceptInvitation(isAccept){debugger;
+    console.log(isAccept)
         var self=this;
         var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
@@ -69,19 +70,26 @@ export default {
                 self.interviewInfo = res.data.data.interviewInfo;
                 if(res.data.data.interviewInfo.markedWords == '链接已失效'){
                     self.$router.push({name:'loseefficacy'});
+                    return
+                }
+                if(res.data.data.interviewInfo.pageStatus == 1){
+                    self.$router.push({name:'acceptInvitation'});
+                    return
+                }else if(res.data.data.interviewInfo.pageStatus == 2){
+                    self.$router.push({name:'declineInvitation'});
+                    return
                 }
             };
         if(isAccept == '1'){
-            this.$router.push({name: 'acceptInvitation'})
-        }else if(isAccept == '3'){
-            this.$router.push({name: 'declineinvitation'})
+            self.$router.push({name: 'acceptInvitation'})
+        }else if(isAccept == '2'){
+            self.$router.push({name: 'refusesuccess'})
         }else{
             self.$http(method,param,successd);
         }
     }
   },
   beforeMount(){
-    //   this.interviewerId = location.href.split('=')[1] || '12';
       this.interviewerId=this.$route.query.interviewerId;
       localStorage.interviewerId=this.interviewerId;
       this.companyId=this.$route.query.companyId;
