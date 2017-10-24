@@ -240,23 +240,23 @@ export default {
           marryStatus: ['','未婚','已婚','离异','保密'],
           interviewerId: '',
           registrationFormInfo: {
-                birthday: "1989.12.22",
-                educationLev: '1',
-                graduateSchool: "湘西民族职业技术学院",
-                politicalStatus: '5',
-                graduateTime: "2017.09",
-                sex: '2',
-                idCardNo: "121212121212121212",
-                marryStatus: '1',
-                speciality: "服装设计",
-                nowLiveAddress: "公元里",
-                interviewerPhone: 12345678901,
-                name: "张洁",
-                hukouAddress: "大理",
-                hukouType: '0',
-                national: "汉族",
-                email: "412863280@qq.com",
-                haveAcquaintance: "有(维尼+表姐妹)",
+                // birthday: "1989.12.22",
+                // educationLev: '1',
+                // graduateSchool: "湘西民族职业技术学院",
+                // politicalStatus: '5',
+                // graduateTime: "2017.09",
+                // sex: '2',
+                // idCardNo: "121212121212121212",
+                // marryStatus: '1',
+                // speciality: "服装设计",
+                // nowLiveAddress: "公元里",
+                // interviewerPhone: 12345678901,
+                // name: "张洁",
+                // hukouAddress: "大理",
+                // hukouType: '0',
+                // national: "汉族",
+                // email: "412863280@qq.com",
+                // haveAcquaintance: "有(维尼+表姐妹)",
             },
                  //   slots: [
         //         {
@@ -292,10 +292,10 @@ export default {
                 this.registrationFormInfo.haveAcquaintance = Number(this.switchValue.open);
                 this.registrationFormInfo.friendRemaik = this.haveAcquaintance;
                 this.registrationFormInfo.interviewerId = this.$route.query.interviewerId;
-            var method = "interviewer/updateBaiscInfo",
+                var method = "interviewer/updateBaiscInfo",
                 param = JSON.stringify(self.registrationFormInfo),
                 successd = function(res){
-                    self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId}})
+                    self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId , registrationFormInfo: self.registrationFormInfo}})
                 };
                 self.$http(method,param,successd);
       },
@@ -355,7 +355,7 @@ export default {
   },
   mounted() {
       console.log(this.$route.query)
-      this.transitonHaveAcquaintanceH(this.registrationFormInfo.haveAcquaintance);
+    //   this.transitonHaveAcquaintanceH(this.registrationFormInfo.haveAcquaintance);
       this.init();
   }
 }

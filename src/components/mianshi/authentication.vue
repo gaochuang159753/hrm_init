@@ -8,10 +8,9 @@
             <div class="inputWrap">
                 <input type="text" v-model="value" placeholder="请输入手机号码">
             </div>
-            <div class="button" @click="confirm()">确定</div> </div>
+            <div class="button" @click="confirm()">确定</div>
+        </div>
     </div>
-    
-  
 </template>
 <script>
 

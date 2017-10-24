@@ -70,9 +70,13 @@
                     <span>现住址: </span>
                     {{registrationFormInfo.nowLiveAddress}}
                 </li>
-                <li v-show="registrationFormInfo.haveAcquaintance">
+                <li v-show="registrationFormInfo.haveAcquaintance != 1 && registrationFormInfo.haveAcquaintance != 0">
                     <span>在本公司有无认识的人： </span>
                     {{registrationFormInfo.haveAcquaintance}}
+                </li>
+                <li v-show="registrationFormInfo.haveAcquaintance == 1 || registrationFormInfo.haveAcquaintance == 0">
+                    <span>在本公司有无认识的人： </span>
+                    {{ haveAcquaintance }}
                 </li>
                 <!-- <li>
                     <span>期望月薪（税前）:  </span>
@@ -124,11 +128,15 @@ export default {
   methods: {
       init() {
         var self = this;
+        console.log(this.$route.query);
         this.interviewerId = this.$route.query.interviewerId;
+        if(this.$route.query.registrationFormInfo){
+            this.registrationFormInfo = this.$route.query.registrationFormInfo;
+            return;
+        }
+        console.log(this.$route.query.registrationFormInfo);
          var method = 'interviewer/signSuccessList',
-         param=JSON.stringify({
-             interviewerId: this.interviewerId
-         }),
+         param=JSON.stringify({interviewerId: this.interviewerId}),
          successd = function(res){
              self.registrationFormInfo = res.data.data.registrationFormInfo;
          }
@@ -138,13 +146,33 @@ export default {
           this.$router.push({name: 'edit', query: {interviewerId: this.interviewerId}})
       },
       submit() {
-         var self = this;
+        var self = this;
+        if(this.registrationFormInfo.haveAcquaintance != 1 && this.registrationFormInfo.haveAcquaintance != 2){
+            var reg = /[\(\)\+]/g;
+            let arr = this.registrationFormInfo.haveAcquaintance.split(reg);
+            this.registrationFormInfo.haveAcquaintance = arr[0] == '有'? '1': '0';
+            this.registrationFormInfo.friendRemaik = arr[2] ? arr[1] + '+' + arr[2] : arr[1];
+        }
+        this.registrationFormInfo.interviewerId = this.interviewerId;
+        this.registrationFormInfo.companyId = localStorage.companyId;
          var method = 'interviewer/submitRegistrationForm',
-         param=JSON.stringify({interviewerId: this.interviewerId}),
+          param=JSON.stringify(
+             this.registrationFormInfo
+         ),
          successd = function(res){
              self.$router.push({path: 'succeed'})
          }
          self.$http(method, param, successd);
+      }
+  },
+  computed: {
+      haveAcquaintance() {
+          var switchval = this.registrationFormInfo.haveAcquaintance? '有': '无';
+          if(this.registrationFormInfo.friendRemaik){
+               return switchval + '(' + this.registrationFormInfo.friendRemaik + ')';
+          }else{
+              return switchval
+          }
       }
   },
   mounted(){
