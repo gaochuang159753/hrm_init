@@ -386,6 +386,7 @@ ul li{
     display: flex;
     justify-content: flex-start;
     font-size: 0.18rem;
+    font-size: 14px;
     font-family:PingFang-SC-Medium;
     color:rgba(153,153,153,1);
     line-height: 18px;

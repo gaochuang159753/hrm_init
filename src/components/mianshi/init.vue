@@ -76,7 +76,7 @@ export default {
                     self.$router.push({name:'acceptInvitation'});
                     return
                 }else if(res.data.data.interviewInfo.pageStatus == 2){
-                    self.$router.push({name:'declineInvitation'});
+                    self.$router.push({name:'refusesuccess'});
                     return
                 }
             };
@@ -84,6 +84,8 @@ export default {
             self.$router.push({name: 'acceptInvitation'})
         }else if(isAccept == '2'){
             self.$router.push({name: 'refusesuccess'})
+        }else if(isAccept == '3'){
+            this.$router.push({name: 'declineinvitation'})
         }else{
             self.$http(method,param,successd);
         }
