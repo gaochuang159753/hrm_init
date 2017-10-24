@@ -147,7 +147,7 @@ export default {
       },
       submit() {
         var self = this;
-        if(this.registrationFormInfo.haveAcquaintance != 1 && this.registrationFormInfo.haveAcquaintance != 2){
+        if(this.registrationFormInfo.haveAcquaintance && this.registrationFormInfo.haveAcquaintance != 1 && this.registrationFormInfo.haveAcquaintance != 2){
             var reg = /[\(\)\+]/g;
             let arr = this.registrationFormInfo.haveAcquaintance.split(reg);
             this.registrationFormInfo.haveAcquaintance = arr[0] == '有'? '1': '0';

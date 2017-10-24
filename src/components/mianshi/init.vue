@@ -55,8 +55,7 @@ export default {
         }
     },
  methods: {
-    acceptInvitation(isAccept){debugger;
-    console.log(isAccept)
+    acceptInvitation(isAccept){
         var self=this;
         var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
