@@ -411,9 +411,12 @@ ul li input{
 }
 ul li span:nth-child(2){
    font-size: 14px;
+    font-weight: normal;
 }
 ul li > span:nth-child(2){
+   font-size: 14px;
     color: black;
+    font-weight: normal;
 }
 ul li input{
     background: none;
