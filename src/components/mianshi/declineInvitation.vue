@@ -124,6 +124,26 @@ export default {
 footer{
     left: 0;
 }
+@media only screen and (min-width: 750px){
+    .btn{
+        margin-left: 10%;
+        margin-bottom: 40px;
+    }
+    .btn .button{
+        width: 40%!important;
+        float: left;
+        margin-top: 0!important;
+        margin:  0 2.5%!important;
+        border-radius: 0!important;
+        height: 50px!important;
+        line-height: 50px!important;
+    }
+    footer{
+        position: relative!important;
+        top: 40px;
+        margin-bottom: 10px;
+    }
+}
 </style>
 <style>
 
