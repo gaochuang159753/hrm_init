@@ -131,11 +131,6 @@ export default {
         var self = this;
         console.log(this.$route.query);
         this.interviewerId = this.$route.query.interviewerId;
-        if(this.$route.query.registrationFormInfo){
-            this.registrationFormInfo = this.$route.query.registrationFormInfo;
-            return;
-        }
-        console.log(this.$route.query.registrationFormInfo);
          var method = 'interviewer/signSuccessList',
          param=JSON.stringify({interviewerId: this.interviewerId}),
          successd = function(res){
