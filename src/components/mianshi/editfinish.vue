@@ -156,9 +156,14 @@ export default {
         //      this.registrationFormInfo
         //  ),
          var self = this;
-         var params=JSON.parse(JSON.stringify(self.registrationFormInfo));
+         var params = JSON.parse(JSON.stringify(self.registrationFormInfo));
          params.interviewerId=self.interviewerId;
          params.companyId=self.companyId;
+         if(localStorage.firstSubmit == '1'){
+             params.firstSubmit = '1';
+         }else{
+             params.firstSubmit = '0';
+         }
          var reg = /[\(\)\+]/g;
         if(params.haveAcquaintance!="没有"){
             var arr = params.haveAcquaintance.split(reg);
@@ -169,6 +174,7 @@ export default {
          param=JSON.stringify(params),
          successd = function(res){
              self.$router.push({path: 'succeed'})
+             localStorage.firstSubmit = '1';
          }
          self.$http(method, param, successd);
       }
