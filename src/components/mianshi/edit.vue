@@ -295,7 +295,7 @@ export default {
                 var method = "interviewer/updateBaiscInfo",
                 param = JSON.stringify(self.registrationFormInfo),
                 successd = function(res){
-                    self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId , registrationFormInfo: self.registrationFormInfo}})
+                    self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId}})
                 };
                 self.$http(method,param,successd);
       },
