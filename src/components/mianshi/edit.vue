@@ -389,10 +389,9 @@ ul li{
     font-size: 14px;
     font-family:PingFang-SC-Medium;
     color:rgba(153,153,153,1);
-    line-height: 18px;
-    height: 0.3rem;
+    line-height: 0.4rem;
+    height: 0.4rem;
     padding: 0.3rem;
-
 }
 ul{
     background: #fff;
@@ -406,6 +405,12 @@ ul li:nth-child(1){
 }
 ul li span{
     min-width: 30%;
+}
+ul li input{
+    font-size: 14px;
+}
+ul li span:nth-child(2){
+   font-size: 14px;
 }
 ul li > span:nth-child(2){
     color: black;
