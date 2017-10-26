@@ -24,7 +24,7 @@
           </li>
           <li>
               <span>出生年月</span>
-              <input type="text" readonly="true" v-model="registrationFormInfo.birthday" @click="openPicker('birthday')">
+              <span @click="openPicker('birthday')">{{ registrationFormInfo.birthday }}</span>
           </li>
           <li>
               <span>政治面貌</span>
@@ -69,7 +69,7 @@
           </li>
           <li>
               <span>毕业时间 </span>
-               <input type="text" readonly="true" v-model="registrationFormInfo.graduateTime" @click="openPicker('graduateTime')">
+              <span @click="openPicker('graduateTime')">{{ registrationFormInfo.graduateTime }}</span>
           </li>
           <li>
               <span>户口所在地 </span>
@@ -78,7 +78,6 @@
           <li>
               <span>户口性质 </span>
                <span @click="openSelect('hukou')">{{hukouType[registrationFormInfo.hukouType]}}</span>
-              <!-- <input type="text" v-model="hukouType[registrationFormInfo.hukouType]"> -->
           </li>
           <mt-radio
                 @change="radioChange('hukou')"
@@ -408,15 +407,16 @@ ul li span{
 }
 ul li input{
     font-size: 14px;
+    font-weight:bold;
 }
 ul li span:nth-child(2){
-   font-size: 14px;
-    font-weight: normal;
+    font-size: 14px;
+    font-weight:bold;
 }
 ul li > span:nth-child(2){
    font-size: 14px;
     color: black;
-    font-weight: normal;
+    font-weight: 100;
 }
 ul li input{
     background: none;

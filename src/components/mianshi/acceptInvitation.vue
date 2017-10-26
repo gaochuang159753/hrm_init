@@ -58,9 +58,9 @@ export default {
       var self=this;
       var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
-                interviewerId: self.interviewerId,
+                interviewerId: localStorage.interviewerId,
                 isAccept: isAccept,
-                companyId:self.companyId
+                companyId: localStorage.companyId
             }),
             successd=function(res){
                 if(res.data.data.interviewInfo.markedWords == '接受面试邀请'){

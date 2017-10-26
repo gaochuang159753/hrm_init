@@ -59,9 +59,9 @@ export default {
         var self=this;
         var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
-                interviewerId: this.interviewerId,
+                interviewerId: localStorage.interviewerId,
                 isAccept: isAccept,
-                companyId:self.companyId
+                companyId:localStorage.companyId
             }),
             successd=function(res){
                 console.log(res.data.data);
