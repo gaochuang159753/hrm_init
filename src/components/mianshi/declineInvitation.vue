@@ -74,9 +74,8 @@ export default {
       }
   },
    beforeMount(){
-      this.interviewerId = localStorage.interviewerId;
-      debugger;
-      this.companyId = localStorage.companyId;
+      this.interviewerId = localStorage.getItem('interviewerid');
+      this.companyId = localStorage.getItem('companyid');
   },
   mounted(){
       this.initList();

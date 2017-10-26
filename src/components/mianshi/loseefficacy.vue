@@ -32,7 +32,7 @@ export default {
             var self=this;
             var method="interviewer/getInterviewInfo",
                 param=JSON.stringify({
-                    interviewerId: localStorage.interviewerId,
+                    interviewerId: localStorage.getItem('interviewerid'),
                     isAccept: '-1'
                 }),
                 successd=function(res){

@@ -103,7 +103,7 @@ export default {
           hukouType: ['农村', '非农'],
           marryStatus: ['','未婚','已婚','离异','保密'],
           interviewerId: '',
-          companyId:localStorage.companyId,
+          companyId:'',
           registrationFormInfo: {
                 // birthday: "1989.12.22",
                 // educationLev: 1,
@@ -159,7 +159,7 @@ export default {
          var params = JSON.parse(JSON.stringify(self.registrationFormInfo));
          params.interviewerId=self.interviewerId;
          params.companyId=self.companyId;
-         if(localStorage.firstSubmit == '1'){
+         if(localStorage.firstsubmit == '1'){
              params.firstSubmit = '1';
          }else{
              params.firstSubmit = '0';
@@ -174,7 +174,7 @@ export default {
          param=JSON.stringify(params),
          successd = function(res){
              self.$router.push({path: 'succeed'})
-             localStorage.firstSubmit = '1';
+             localStorage.firstsubmit = '1';
          }
          self.$http(method, param, successd);
       }
@@ -188,6 +188,9 @@ export default {
               return switchval
           }
       }
+  },
+  beforeMount(){
+       this.companyId = localStorage.getItem('companyid');
   },
   mounted(){
       this.init();

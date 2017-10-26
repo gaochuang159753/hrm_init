@@ -56,9 +56,9 @@ export default {
         var self = this;
         var method = "interviewer/getInterviewInfo",
             param = JSON.stringify({
-                interviewerId: localStorage.interviewerId,
+                interviewerId: localStorage.getItem('interviewerid'),
                 isAccept: isAccept,
-                companyId:localStorage.companyId
+                companyId:localStorage.getItem('companyid')
             }),
             successd = function(res){
                 self.interviewInfo = res.data.data.interviewInfo;
@@ -67,8 +67,8 @@ export default {
      },
   },
    beforeMount(){
-      this.interviewerId = localStorage.interviewerId;
-      this.companyId = localStorage.companyId;
+      this.interviewerId = localStorage.interviewerid;
+      this.companyId = localStorage.companyid;
   },
   mounted () {
       this.init()

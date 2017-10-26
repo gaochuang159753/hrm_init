@@ -44,9 +44,8 @@ export default {
       }
   },
   mounted(){
-    this.companyId=localStorage.companyId;
+    this.companyId=localStorage.getItem('companyid');
     this.init();
-    console.log(this.$route.query)
   }
 }
 </script>

@@ -17,7 +17,7 @@ export default {
             //    companyName: "景麒水果公司",
             //    email: "2323@12.com"
           },
-            companyId:localStorage.companyId,
+            companyId: localStorage.getItem('companyid'),
       }
   },
   methods: {

@@ -353,8 +353,6 @@ export default {
       }
   },
   mounted() {
-      console.log(this.$route.query)
-    //   this.transitonHaveAcquaintanceH(this.registrationFormInfo.haveAcquaintance);
       this.init();
   }
 }
@@ -412,16 +410,13 @@ ul li input{
 ul li span:nth-child(2){
     font-size: 14px;
     font-weight:bold;
-}
-ul li > span:nth-child(2){
-   font-size: 14px;
-    color: black;
-    font-weight: 100;
+    width: 100%;
 }
 ul li input{
     background: none;
     outline: none;
     border: none;
+    width: 100%;
 }
 .pickerWrap{
     position: fixed;

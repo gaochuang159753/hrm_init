@@ -59,9 +59,9 @@ export default {
         var self=this;
         var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
-                interviewerId: localStorage.interviewerId,
+                interviewerId: this.interviewerId,
                 isAccept: isAccept,
-                companyId:localStorage.companyId
+                companyId:this.companyId
             }),
             successd=function(res){
                 console.log(res.data.data);
@@ -92,9 +92,9 @@ export default {
   },
   beforeMount(){
       this.interviewerId=this.$route.query.interviewerId;
-      localStorage.interviewerId=this.interviewerId;
+      localStorage.setItem('interviewerid',this.interviewerId);
       this.companyId=this.$route.query.companyId;
-      localStorage.companyId=this.companyId;
+      localStorage.setItem('companyid',this.companyId);
   },
   mounted(){
       this.acceptInvitation('-1');

@@ -58,9 +58,10 @@ export default {
       var self=this;
       var method="interviewer/getInterviewInfo",
             param=JSON.stringify({
-                interviewerId: localStorage.interviewerId,
+                interviewerId: localStorage.getItem('interviewerid'),
                 isAccept: isAccept,
-                companyId: localStorage.companyId
+                companyId:localStorage.getItem('companyid')
+               
             }),
             successd=function(res){
                 if(res.data.data.interviewInfo.markedWords == '接受面试邀请'){
@@ -78,8 +79,8 @@ export default {
     }
   },
   beforeMount(){
-      this.interviewerId = localStorage.interviewerId;
-      this.companyId = localStorage.companyId;
+      this.interviewerId = localStorage.getItem('interviewerid');
+      this.companyId = localStorage.getItem('companyid');
   },
   mounted(){
       this.acceptInvitation('1');

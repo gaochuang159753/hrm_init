@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import hello from '@/components/Hello'
 import init from '@/components/mianshi/init'
 import declineinvitation from '@/components/mianshi/declineInvitation'
 import refusesuccess from '@/components/mianshi/refusesuccess'

@@ -22,16 +22,16 @@ export default {
       return{
           name: '杭州爱聚科技有限公司',
           value: '',
-          companyId:null,
+          companyId: null,
           scanAfterPageInfo:{
-              companyName:'',
-              logoUrl:null
+              companyName: '',
+              logoUrl: null
           }
       }
   },
   mounted(){
-      localStorage.companyId=this.$route.query.companyId;
-      this.companyId=localStorage.companyId;
+      localStorage.setItem('companyid', this.$route.query.companyId);
+      this.companyId = this.$route.query.companyId;
       this.init();
   },
     methods: {
@@ -39,10 +39,9 @@ export default {
             var self=this;
             var method="interviewer/scanAfterPageInfo",
                 param=JSON.stringify({
-                    companyId:self.companyId
+                    companyId:localStorage.getItem('companyid')
                 }),
                 successd=function(res){
-                    console.log(res);
                     self.scanAfterPageInfo=res.data.data.scanAfterPageInfo;
                 };
             self.$http(method,param,successd);
@@ -53,11 +52,10 @@ export default {
             if (!reg.test(this.value)) {
                 Toast('请输入正确的手机号');
             } else {
-                // this.$router.push({name:'signin', query: {phoneNum: this.value}});
                 var method="interviewer/authentication",
                     param=JSON.stringify({
                         interviewerPhone:this.value,
-                        companyId:self.companyId
+                        companyId:localStorage.getItem('companyid')
                     }),
                     successd=function(res){
                         if(res.data.data.authenticationInfo.result=='true'){
@@ -65,7 +63,7 @@ export default {
                         }else{
                             Toast(res.data.data.authenticationInfo.errorReminder);
                         }
-                        localStorage.firstSubmit = '';
+                         localStorage.setItem('firstsubmit', '');
                     };
                 self.$http(method,param,successd);
             }
