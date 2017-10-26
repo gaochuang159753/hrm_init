@@ -411,12 +411,14 @@ ul li span:nth-child(2){
     font-size: 14px;
     font-weight:bold;
     width: 100%;
+    color: black;
 }
 ul li input{
     background: none;
     outline: none;
     border: none;
     width: 100%;
+    color: black;
 }
 .pickerWrap{
     position: fixed;
