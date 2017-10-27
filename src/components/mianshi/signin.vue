@@ -32,9 +32,8 @@ export default {
                 companyId:self.companyId
             }),
             succeed = function(res){
-                console.log(res);
                 self.authenticationInfo = res.data.data.authenticationInfo;
-                console.log(errorReminder)
+                localStorage.setItem('interviewerid', self.authenticationInfo.interviewerId)
             }
             self.$http(method,param,succeed);
       },
