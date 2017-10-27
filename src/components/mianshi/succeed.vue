@@ -14,7 +14,7 @@ export default {
   name: 'succeed',
   data() {
       return{
-          href: 'https://hr.ecbao.cn'
+          href: 'https://aijuhr.com'
       }
   }
 }
