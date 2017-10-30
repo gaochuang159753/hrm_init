@@ -273,7 +273,10 @@ export default {
       init() {
           var self = this;
           let method = 'interviewer/signSuccessList',
-          param=JSON.stringify({interviewerId: this.$route.query.interviewerId}),
+          param=JSON.stringify({
+              interviewerId: this.$route.query.interviewerId,
+               firstSubmit: localStorage.getItem('firstsubmit') || '0'
+          }),
           successd = function(res){
               let registrationFormInfo = res.data.data.registrationFormInfo;
               for(var key in registrationFormInfo){
