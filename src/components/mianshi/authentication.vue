@@ -30,8 +30,10 @@ export default {
       }
   },
   mounted(){
-      localStorage.setItem('companyid', this.$route.query.companyId);
-      this.companyId = this.$route.query.companyId;
+      if(this.$route.query.companyId != ''){
+         localStorage.setItem('companyid', this.$route.query.companyId);
+         this.companyId = this.$route.query.companyId;
+      }
       this.init();
   },
     methods: {

@@ -137,7 +137,7 @@ export default {
          var method = 'interviewer/signSuccessList',
          param=JSON.stringify({
              interviewerId: this.interviewerId,
-             firstsubmit: firstsubmit
+             firstSubmit: firstsubmit
         }),
          successd = function(res){
              self.registrationFormInfo = res.data.data.registrationFormInfo;

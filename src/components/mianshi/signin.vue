@@ -21,6 +21,7 @@ export default {
             // interviewerName: "张洁"
         },
         companyId:null,
+        result: true
      }
   },
   methods: {
@@ -33,12 +34,20 @@ export default {
             }),
             succeed = function(res){
                 self.authenticationInfo = res.data.data.authenticationInfo;
+                if(self.authenticationInfo.result == 'false'){
+                    Toast(self.authenticationInfo.error);
+                    self.result = false;
+                    return;
+                }
                 localStorage.setItem('interviewerid', self.authenticationInfo.interviewerId)
             }
             self.$http(method,param,succeed);
       },
       signin() {
-          console.log(this.authenticationInfo)
+          if(this.result == false){
+            Toast('您已签到');
+            return;
+          }
         this.$router.push({name: 'editfinish', query: {interviewerId: this.authenticationInfo.interviewerId}})
       }
   },
