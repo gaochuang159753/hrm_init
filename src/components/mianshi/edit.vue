@@ -409,6 +409,8 @@ ul li:nth-child(1){
 }
 ul li span{
     min-width: 30%;
+    word-wrap: nowrap;
+    word-break: keep-all;
 }
 ul li input{
     font-size: 14px;
