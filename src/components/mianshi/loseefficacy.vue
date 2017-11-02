@@ -33,11 +33,11 @@ export default {
             var method="interviewer/getInterviewInfo",
                 param=JSON.stringify({
                     interviewerId: localStorage.getItem('interviewerid'),
+                    companyId:localStorage.getItem('companyid'),
                     isAccept: '-1'
                 }),
                 successd=function(res){
-                    console.log(res);
-                         self.interviewInfo = res.data.data.interviewInfo;
+                    self.interviewInfo = res.data.data.interviewInfo;
                 };
                 self.$http(method,param,successd);
         }

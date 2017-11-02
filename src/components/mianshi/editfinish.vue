@@ -78,10 +78,10 @@
                     <span>在本公司有无认识的人： </span>
                     {{ haveAcquaintance }}
                 </li>
-                <!-- <li>
+                <li>
                     <span>期望月薪（税前）:  </span>
-                    {{registrationFormInfo}}
-                </li> -->
+                    {{registrationFormInfo.expectSalary}}
+                </li>
             </ul>
             <div class="promise">
                  <p>1.本人承诺上述所有信息都是真实、诚信的，教育证书真实、可靠；在以前工作单位亦无任何违反法律、法规或公司规章制度之行为；如有违反，本人愿承担全部责任，直至辞退并无经济补偿。</p>

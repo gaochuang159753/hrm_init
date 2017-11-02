@@ -113,6 +113,10 @@
               <span>与你的关系: </span>
               <input type="text" v-model="switchValue.relation">
           </li>
+           <li>
+              <span>期望月薪( k )</span>
+              <input type="text" v-model="registrationFormInfo.expectSalary">
+          </li>
       </ul>
       <div class="button" @click="save()">确定</div>
       <!-- <div class="maskWrap" v-show="picker.pickerShow"></div>
@@ -275,7 +279,7 @@ export default {
           let method = 'interviewer/signSuccessList',
           param=JSON.stringify({
               interviewerId: this.$route.query.interviewerId,
-               firstSubmit: localStorage.getItem('firstsubmit') || '0'
+              firstSubmit: localStorage.getItem('firstsubmit') || '0'
           }),
           successd = function(res){
               let registrationFormInfo = res.data.data.registrationFormInfo;

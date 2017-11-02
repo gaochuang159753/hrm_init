@@ -65,7 +65,7 @@ export default {
                         }else{
                             Toast(res.data.data.authenticationInfo.errorReminder);
                         }
-                         localStorage.setItem('firstsubmit', '');
+                         localStorage.setItem('firstsubmit', '0');
                     };
                 self.$http(method,param,successd);
             }
