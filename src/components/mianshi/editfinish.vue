@@ -70,11 +70,11 @@
                     <span>现住址: </span>
                     {{registrationFormInfo.nowLiveAddress}}
                 </li>
-                <li v-show="registrationFormInfo.haveAcquaintance != 1 && registrationFormInfo.haveAcquaintance != 0">
+                <!-- <li v-show="registrationFormInfo.haveAcquaintance != 1 && registrationFormInfo.haveAcquaintance != 0">
                     <span>在本公司有无认识的人： </span>
                     {{registrationFormInfo.haveAcquaintance}}
-                </li>
-                <li v-show="registrationFormInfo.haveAcquaintance == 1 || registrationFormInfo.haveAcquaintance == 0">
+                </li> -->
+                <li>
                     <span>在本公司有无认识的人： </span>
                     {{ haveAcquaintance }}
                 </li>
@@ -128,23 +128,31 @@ export default {
   },
   methods: {
       init() {
+         debugger;
+          
         var self = this;
         this.interviewerId = localStorage.getItem('interviewerid');
         var firstsubmit = '0';
         if(localStorage.firstsubmit == '1'){
              firstsubmit = '1';
          }
-         var method = 'interviewer/signSuccessList',
-         param=JSON.stringify({
-             interviewerId: this.interviewerId,
-             firstSubmit: firstsubmit
-        }),
-         successd = function(res){
-             self.registrationFormInfo = res.data.data.registrationFormInfo;
-         }
-         self.$http(method, param, successd);
+         if(localStorage.getItem('detail') != null){
+             this.registrationFormInfo = JSON.parse(localStorage.getItem('detail'));
+         }else{
+            var method = 'interviewer/signSuccessList',
+            param=JSON.stringify({
+                interviewerId: this.interviewerId,
+                firstSubmit: firstsubmit
+            }),
+            successd = function(res){
+                self.registrationFormInfo = res.data.data.registrationFormInfo;
+            }
+            self.$http(method, param, successd);
+        }
       },
       edit() {
+          console.log(this.registrationFormInfo)
+          localStorage.setItem('detail',  JSON.stringify(this.registrationFormInfo));
           this.$router.push({name: 'edit', query: {interviewerId: this.interviewerId}})
       },
       submit() {
@@ -161,6 +169,7 @@ export default {
         //   param=JSON.stringify(
         //      this.registrationFormInfo
         //  ),
+        debugger;
          var self = this;
          var params = JSON.parse(JSON.stringify(self.registrationFormInfo));
          params.interviewerId=self.interviewerId;
@@ -170,12 +179,13 @@ export default {
          }else{
              params.firstSubmit = '0';
          }
-         var reg = /[\(\)\+]/g;
-        if(params.haveAcquaintance!="没有"){
-            var arr = params.haveAcquaintance.split(reg);
-            params.friendRemaik =arr[1] + '+' + arr[2];
-        }
-        params.haveAcquaintance=params.haveAcquaintance=="没有"?0:1;
+         console.log(params);
+        //  var reg = /[\(\)\+]/g;
+        // if(params.haveAcquaintance!="没有"){
+        //     var arr = params.haveAcquaintance.split(reg);
+        //     params.friendRemaik =arr[1] + '+' + arr[2];
+        // }
+        // params.haveAcquaintance=params.haveAcquaintance=="没有"?0:1;
          var method = 'interviewer/submitRegistrationForm',
          param=JSON.stringify(params),
          successd = function(res){
@@ -187,8 +197,8 @@ export default {
   },
   computed: {
       haveAcquaintance() {
-          var switchval = this.registrationFormInfo.haveAcquaintance? '有': '无';
-          if(this.registrationFormInfo.friendRemaik){
+          var switchval = this.registrationFormInfo.haveAcquaintance == '1' ? '有': '没有';
+          if(this.registrationFormInfo.friendRemaik != ''){
                return switchval + '(' + this.registrationFormInfo.friendRemaik + ')';
           }else{
               return switchval

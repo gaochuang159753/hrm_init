@@ -107,7 +107,7 @@
           </li>
           <li v-show="switchValue.open">
               <span>在本公司认识的人： </span>
-              <input type="text" v-model="switchValue.person">
+              <input type="text" style="width: auto;" v-model="switchValue.person">
           </li>
             <li v-show="switchValue.open">
               <span>与你的关系: </span>
@@ -115,15 +115,10 @@
           </li>
            <li>
               <span>期望月薪( k )</span>
-              <input type="text" v-model="registrationFormInfo.expectSalary">
+              <input type="text"  v-model="registrationFormInfo.expectSalary">
           </li>
       </ul>
       <div class="button" @click="save()">确定</div>
-      <!-- <div class="maskWrap" v-show="picker.pickerShow"></div>
-      <div class="pickerWrap" v-show="picker.pickerShow">
-          <mt-button type="primary" @click="pickerClick()">确定</mt-button>
-             <mt-picker :slots="slots" :showToolbar='true' @change="onValuesChange"></mt-picker>
-      </div> -->
        <mt-datetime-picker
             ref="picker"
             type="date"
@@ -275,35 +270,48 @@ export default {
   },
   methods: {
       init() {
-          var self = this;
-          let method = 'interviewer/signSuccessList',
-          param=JSON.stringify({
-              interviewerId: this.$route.query.interviewerId,
-              firstSubmit: localStorage.getItem('firstsubmit') || '0'
-          }),
-          successd = function(res){
-              let registrationFormInfo = res.data.data.registrationFormInfo;
+          var detail =  localStorage.getItem('detail');
+          var registrationFormInfo = JSON.parse(detail);
               for(var key in registrationFormInfo){
                   if(typeof registrationFormInfo[key] == 'number'){
                       registrationFormInfo[key] = String(registrationFormInfo[key]);
                   }
               }
-             self.registrationFormInfo = res.data.data.registrationFormInfo;
-             self.transitonHaveAcquaintanceH(self.registrationFormInfo.haveAcquaintance);
-          }
-          this.$http(method, param, successd);
+              this.registrationFormInfo = registrationFormInfo;
+             this.transitonHaveAcquaintanceH(this.registrationFormInfo);
+
+        //   var self = this;
+        //   let method = 'interviewer/signSuccessList',
+        //   param=JSON.stringify({
+        //       interviewerId: this.$route.query.interviewerId,
+        //       firstSubmit: localStorage.getItem('firstsubmit') || '0'
+        //   }),
+        //   successd = function(res){
+        //       let registrationFormInfo = res.data.data.registrationFormInfo;
+        //       for(var key in registrationFormInfo){
+        //           if(typeof registrationFormInfo[key] == 'number'){
+        //               registrationFormInfo[key] = String(registrationFormInfo[key]);
+        //           }
+        //       }
+        //      self.registrationFormInfo = res.data.data.registrationFormInfo;
+        //      self.transitonHaveAcquaintanceH(self.registrationFormInfo.haveAcquaintance);
+        //   }
+        //   this.$http(method, param, successd);
       },
       save() {
           var self=this;
                 this.registrationFormInfo.haveAcquaintance = Number(this.switchValue.open);
                 this.registrationFormInfo.friendRemaik = this.haveAcquaintance;
                 this.registrationFormInfo.interviewerId = this.$route.query.interviewerId;
-                var method = "interviewer/updateBaiscInfo",
-                param = JSON.stringify(self.registrationFormInfo),
-                successd = function(res){
-                    self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId}})
-                };
-                self.$http(method,param,successd);
+                let detail = JSON.stringify(self.registrationFormInfo);
+                localStorage.setItem('detail', detail);
+                self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId}})
+                // var method = "interviewer/updateBaiscInfo",
+                // param = JSON.stringify(self.registrationFormInfo),
+                // successd = function(res){
+                //     self.$router.push({ name: 'editfinish',query:{interviewerId: self.$route.query.interviewerId}})
+                // };
+                // self.$http(method,param,successd);
       },
       onValuesChange(picker, values) {
           console.log(picker.getValues())
@@ -312,6 +320,16 @@ export default {
           this.timePicker.type = type;
           this.$refs.picker.open();
       }, 
+      numberReg(){
+          var obj = this.registrationFormInfo.expectSalary;
+            this.registrationFormInfo.expectSalary = obj.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符  
+            this.registrationFormInfo.expectSalary = obj.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的  
+            this.registrationFormInfo.expectSalary = obj.replace(".","$#$").replace(/\./g,"").replace("$#$","."); 
+            this.registrationFormInfo.expectSalary = obj.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数  
+            if(this.registrationFormInfo.expectSalary.indexOf(".")< 0 && obj !=""){//以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额 
+                this.registrationFormInfo.expectSalary= parseFloat(obj); 
+            } 
+      },
       radioChange(){
           this.picker.pickerShow = false
       },
@@ -330,11 +348,10 @@ export default {
           this.picker.type = type;    
       },
       transitonHaveAcquaintanceH(val) {
-          var reg = /[\(\)\+]/g;
-          let arr = val.split(reg);
-          this.switchValue.open = arr[0] == '有'? true: false;
-          this.switchValue.person = arr[1];
-          this.switchValue.relation = arr[2];
+          let arr = val.friendRemaik.split('+');
+          this.switchValue.open =  val.haveAcquaintance == '1'? true: false;
+          this.switchValue.person = arr[0];
+          this.switchValue.relation = arr[1];
       },
       switchChange(){
           if(this.switchValue.open == false){
