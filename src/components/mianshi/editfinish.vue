@@ -128,8 +128,6 @@ export default {
   },
   methods: {
       init() {
-         debugger;
-          
         var self = this;
         this.interviewerId = localStorage.getItem('interviewerid');
         var firstsubmit = '0';
@@ -169,7 +167,6 @@ export default {
         //   param=JSON.stringify(
         //      this.registrationFormInfo
         //  ),
-        debugger;
          var self = this;
          var params = JSON.parse(JSON.stringify(self.registrationFormInfo));
          params.interviewerId=self.interviewerId;
