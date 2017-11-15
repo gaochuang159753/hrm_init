@@ -114,7 +114,7 @@
               <input type="text" v-model="switchValue.relation">
           </li>
            <li>
-              <span>期望月薪( k )</span>
+              <span>期望薪资( k )</span>
               <input type="text"  v-model="registrationFormInfo.expectSalary">
           </li>
       </ul>

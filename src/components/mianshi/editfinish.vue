@@ -79,7 +79,7 @@
                     {{ haveAcquaintance }}
                 </li>
                 <li>
-                    <span>期望月薪（税前）:  </span>
+                    <span>期望薪资（税前）:  </span>
                     {{registrationFormInfo.expectSalary}}
                 </li>
             </ul>
