@@ -50,7 +50,7 @@ export default {
         },
         confirm() {
             var self=this;
-            var reg = /^1[3578][0-9]{9}$/;
+            var reg = /^1[34578][0-9]{9}$/;
             if (!reg.test(this.value)) {
                 Toast('请输入正确的手机号');
             } else {

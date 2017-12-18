@@ -13,7 +13,7 @@ var user="http://121.199.182.2:30004/hrm" //测试
 var user = "https://aijuhr.com/hrm"; // 正式
 
 exports.ukeyNo = false;//U盾的开关,正式:false,开发:true
-exports.ukeyNo = true;//U盾的开关,正式:false,开发:true
+// exports.ukeyNo = true;//U盾的开关,正式:false,开发:true
 exports.url = user + '/api.do';
 exports.uploadURLForPay = user + '/upload.do?method=spwSalaryPay/leadSpwSalaryPays';//发送工资条上传专用
 exports.uploadURLForCommon = user + '/upload.do?method=fileUpload/insertFileRecord';//文件上传公用
