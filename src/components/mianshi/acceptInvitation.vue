@@ -15,7 +15,6 @@
                     <li><span>联系电话:</span> {{interviewInfo.contractPhone}}</li>
                 </ul>
             </div>
-            </div>
             <footer id="footer">
                 <div>{{interviewInfo.companyName}}</div>
             </footer>
@@ -83,7 +82,7 @@ export default {
       this.companyId = localStorage.getItem('companyid');
   },
   mounted(){
-      this.acceptInvitation('1');
+      this.acceptInvitation('-1');
   }
 }
 </script>

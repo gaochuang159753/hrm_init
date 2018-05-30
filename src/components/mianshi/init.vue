@@ -20,7 +20,6 @@
                 <div class="button pc" @click="acceptInvitation(1)">我接受</div>
                 <div class="button pc" @click="acceptInvitation(3)" style="margin-top: 20px; background:rgba(249,104,104,1);">我拒绝</div>            
             </div>
-            </div>
             <footer id="footer">
                 <div>{{interviewInfo.companyName}}</div>
             </footer>
@@ -78,10 +77,11 @@ export default {
                     self.$router.push({name:'refusesuccess'});
                     return
                 }
+                if(isAccept == '1'){
+                    self.$router.push({name: 'acceptInvitation'})
+                }
             };
-        if(isAccept == '1'){
-            self.$router.push({name: 'acceptInvitation'})
-        }else if(isAccept == '2'){
+        if(isAccept == '2'){
             self.$router.push({name: 'refusesuccess'})
         }else if(isAccept == '3'){
             this.$router.push({name: 'declineinvitation'})
